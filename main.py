@@ -1,3 +1,3 @@
 
-print(1)
-#sdfsdf
+
+if __name__ == '__main__':
