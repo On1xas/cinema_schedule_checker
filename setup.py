@@ -1,0 +1,1 @@
+#pip install requests, lxml, datetime, sqlite3

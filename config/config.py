@@ -1,0 +1,6 @@
+parsing_url_api='https://soft.silverscreen.by:8443/wssite/webapi/xml?mode=showtimes&date='
+parsing_url_arena=''
+parsing_url_dana=''
+parsing_url_palazzo=''
+parsing_url_triniti=''
+tms_password='Limon4ik'

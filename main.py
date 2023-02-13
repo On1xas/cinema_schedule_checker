@@ -1,4 +1,5 @@
-
+import datetime
 
 if __name__ == '__main__':
-    print(1)
+    date = datetime.datetime.now()
+    print(date.date())
