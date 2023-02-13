@@ -27,14 +27,23 @@ def parse_schedule_api() -> list[tuple[str | None, str | None, str | None, str |
         url = f'{parsing_url_api}{dates}'
     else:
         url = f'{parsing_url_api}{dates}&theater={theatre}'
+    print(f"{parse_schedule_api.__name__}***Выполняю запрос сеансов из программного обеспечения кинотеатра***")
     request = requests.get(url)
     # with open('schedule_api.txt', 'w', encoding='utf-8') as w:
     #     w.write(request.text)
     # with open('schedule_api.txt', 'r', encoding='utf-8') as r:
-    xml = request.text
-    parser = etree.XMLParser(recover=True)
-    root = ET.fromstring(xml, parser=parser)
-    for i in range(1, len(root[0])):
-        data_parsing_api.append(
-            (root[0][i][29].text, root[0][i][28].text, root[0][i][2].text, root[0][i][15].text, root[0][i][34].text))
-    return list(sorted(data_parsing_api, key=lambda x: x[2]))
+    if request.status_code == 200:
+        print(f'{parse_schedule_api.__name__}***Ответ получен успешно***')
+        xml = request.text
+        parser = etree.XMLParser(recover=True)
+        root = ET.fromstring(xml, parser=parser)
+        for i in range(1, len(root[0])):
+            data_parsing_api.append(
+                (
+                root[0][i][29].text, root[0][i][28].text, root[0][i][2].text, root[0][i][15].text, root[0][i][34].text))
+        return list(sorted(data_parsing_api, key=lambda x: x[2]))
+    else:
+        print(f'{parse_schedule_api.__name__}***Проверьте полученные данные, возможно запрос был выполнен некорректно или не выполнен вовсе. Ошибка запроса {request.status_code}.***')
+        return None
+
+parse_schedule_api()
