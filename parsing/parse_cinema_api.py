@@ -4,8 +4,8 @@ import xml.etree.ElementTree as ET
 from config.config import parsing_url_api
 import datetime
 
-
-theatre = input('Введите номер кинотера:\nArena - 2\nDana - 3\nPalazzo - 19\nTRINITI - 11\n')
+#
+# theatre = input('Введите номер кинотера:\nArena - 2\nDana - 3\nPalazzo - 19\nTRINITI - 11\n')
 
 
 def parse_schedule_api(theater: str) -> None:
@@ -21,13 +21,13 @@ def parse_schedule_api(theater: str) -> None:
     :return: Функция возврашает None, создает/редактирует schedule.txt в корне проекта для дальнейшего парсинка сеансов кинотеатра
     '''
     date = datetime.datetime.now()
-    url = f'{parsing_url_api}{date.date()}&theater={theater}'
+    url = f'{parsing_url_api}{date.date()}'
     request = requests.get(url)
     with open('schedule_api.txt', 'w', encoding='utf-8') as w:
         w.write(request.text)
 
 
-parse_schedule_api(theatre)
+# parse_schedule_api(theatre)
 
 with open('schedule_api.txt', 'r', encoding='utf-8') as r:
     xml = r.read()
@@ -41,7 +41,7 @@ for i in range(1, len(root[0])):
 
  
 
-import datetime
+'''import datetime
 import requests
 import sqlite3
 db_path='./parseshowdb.db'
@@ -57,6 +57,5 @@ def create_table(path):
     con.commit()
     con.close()
 
-create_table(db_path)
-           
-'''
+create_table(db_path)'''
+
