@@ -1,5 +1,7 @@
-import datetime
+from parsing.parse_cinema_api import parse_schedule_api
+
+
+
 
 if __name__ == '__main__':
-    date = datetime.datetime.now()
-    print(date.date())
+    print('Приветсвую. Введи команду:')
