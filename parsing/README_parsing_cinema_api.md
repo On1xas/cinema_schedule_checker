@@ -2,25 +2,62 @@
 
 https://soft.silverscreen.by:8443/wssite/webapi/xml?mode=events&date=2021-06-23&eventId=1410&theater=2
 
-Параметры запроса:
+### **Параметры запроса**:
 
-Name	Type	           Variants	       Discription
+<table>
+   <tr>
+    <th>Name</th>
+    <th>Type</th>
+    <th>Variants</th>
+    <th>Discription</th>
+   </tr>
+   <tr>
+    <td>mode</td>
+    <td>обязательный</td>
+    <td>events </td>
+    <td>Список событий</td>
+   </tr>
+    <tr>
+    <td></td>
+    <td></td>  
+    <td>showdates</td> 
+    <td>Список Дат</td>  
+    </tr>
+    <tr>
+    <td></td>
+    <td></td>  
+    <td>showtimes</td> 
+    <td>Список времени сеансов</td>  
+    </tr>
+    <tr>
+    <td>date</td>
+    <td>необязательный</td>  
+    <td></td> 
+    <td>выборка по дате сеанса</td>  
+    </tr>
+ <tr>
+    <td>eventid</td>
+    <td>необязательный</td>  
+    <td></td> 
+    <td>выборка по id события</td>  
+    </tr>
+ <tr>
+    <td>theater</td>
+    <td>необязательный</td>  
+    <td></td> 
+    <td>отбор по объекту</td>  
+    </tr>
+ </table>
 
-mode	обязательный	   events          Список событий
-                           showdates       Список Дат
-                           showtimes	   Список времени сеансов
-
-date	необязательный		               выборка по дате сеанса
-eventid	необязательный		               выборка по id события
-theater	необязательный		               отбор по объекту
-
-
-
-
-
-
-
-
+Номера кинотеатров для запроса theater:
+<li>
+2 - Arena City Silver Screen cinema\
+<li>
+3 - VOKA CINEMA by Silver Screen\
+<li>
+11 - mooon в ТРК Triniti\
+<li>
+19 - mooon в ТРЦ Palazzo
 
 
 Дерево ответа об сеансе получаемого от API программного обеспечения букера:
