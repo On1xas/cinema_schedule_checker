@@ -119,7 +119,6 @@ def update_pivot_table(show_set_api, show_set_db, cursor,connect_db):
 def fill_pivot_spl_title(cursor,connect_db):
     cursor.execute('SELECT * FROM PIVOT_SHOW_TABLE')
     for show in cursor.fetchall():
-        print(show)
         if show[2] is None:
             spl_name=input(f'***Обнаружен фильм без данных о названии SPL. Введите название SPL к фильму {show[1]}\n')
             sql = "UPDATE PIVOT_SHOW_TABLE SET SPL_TITLE_NAME = ? WHERE id = ?;"
