@@ -1,4 +1,4 @@
-# pip install requests, lxml, datetime, sqlite3
+# pip install requests, lxml, datetime, sqlite3, os, selenium, shutil, openpyxl
 
 import sqlite3
 
@@ -56,11 +56,12 @@ for i in range(1, 6):
     connect.commit()
 
 for i in range(1, 7):
-    # Создаем таблицы залов кинотеатра ARENA_TMS
+    # Создаем таблицы залов кинотеатра ARENA_TMS , , , SPL_TITLE, CPL_TITLE
     sql = f'''CREATE TABLE IF NOT EXISTS ARENA_{i}_ROOM_TMS (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         TH_NAME TEXT,
         ROOM TEXT,
+        SHOW_START TEXT,
         SPL_TITLE TEXT,
         CPL_TITLE TEXT)'''
     cur.execute(sql)
@@ -72,6 +73,7 @@ for i in range(1, 8):
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         TH_NAME TEXT,
         ROOM TEXT,
+        SHOW_START TEXT,
         SPL_TITLE TEXT,
         CPL_TITLE TEXT)'''
     cur.execute(sql)
@@ -82,6 +84,7 @@ for i in range(1, 8):
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         TH_NAME TEXT,
         ROOM TEXT,
+        SHOW_START TEXT,
         SPL_TITLE TEXT,
         CPL_TITLE TEXT)'''
     cur.execute(sql)
@@ -92,6 +95,7 @@ for i in range(1, 6):
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         TH_NAME TEXT,
         ROOM TEXT,
+        SHOW_START TEXT,
         SPL_TITLE TEXT,
         CPL_TITLE TEXT)'''
     cur.execute(sql)
