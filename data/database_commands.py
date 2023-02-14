@@ -61,9 +61,26 @@ def insert_data_api_sql(show):
         if room == 'Зал 6':
             return f"INSERT INTO ARENA_6_ROOM_API (TH_NAME, ROOM, SHOW_TIME, SHOW_NAME, FORMAT) VALUES(?,?,?,?,?)"
 
-def insert_data_tms_sql(show):
-    with open() as file:
-        pass
+def insert_data_tms_sql(data_parsing_arena):
+    # for show in data_parsing_arena:
+    #     if show[0]=='R1 S':
+    #         cur.execute("INSERT INTO ARENA_ROOM_1 (ROOM,SHOW_TIME, SPL_NAME,CPL_TITLE) VALUES (?, ?, ?, ?)", show)
+    #         conn.commit()
+    #     elif show[0]=='R2 S 3D DA':
+    #         cur.execute("INSERT INTO ARENA_ROOM_2 (ROOM,SHOW_TIME, SPL_NAME,CPL_TITLE) VALUES (?, ?, ?, ?)", show)
+    #         conn.commit()
+    #     elif show[0]=='R3 S':
+    #         cur.execute("INSERT INTO ARENA_ROOM_3 (ROOM,SHOW_TIME, SPL_NAME,CPL_TITLE) VALUES (?, ?, ?, ?)", show)
+    #         conn.commit()
+    #     elif show[0]=='R4 S 3D DA':
+    #         cur.execute("INSERT INTO ARENA_ROOM_4 (ROOM,SHOW_TIME, SPL_NAME,CPL_TITLE) VALUES (?, ?, ?, ?)", show)
+    #         conn.commit()
+    #     elif show[0]=='R5 S':
+    #         cur.execute("INSERT INTO ARENA_ROOM_5 (ROOM,SHOW_TIME, SPL_NAME,CPL_TITLE) VALUES (?, ?, ?, ?)", show)
+    #         conn.commit()
+    #     elif show[0]=='R6 S 3D':
+    #         cur.execute("INSERT INTO ARENA_ROOM_6 (ROOM,SHOW_TIME, SPL_NAME,CPL_TITLE) VALUES (?, ?, ?, ?)", show)
+    #         conn.commit()
 
 def clear_parsing_all_table(cur, connect):
     for i in range(1,7):
