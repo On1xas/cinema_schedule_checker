@@ -13,7 +13,7 @@ def main():
 if __name__ == '__main__':
     connect_db=sqlite3.connect('data\database.db')
     cur=connect_db.cursor()
-    # Очистка таблиц от предыдущих сеансов
+    # Очистка таблиц от предыдущих данных сеансов
     clear_parsing_all_table(cur, connect_db)
     #Подготавливаем множество названий сеансов которое знает база данных
     show_set_db=prepare_set_show_from_db(cur)
@@ -29,5 +29,6 @@ if __name__ == '__main__':
         connect_db.commit()
     # Обновляем сводную таблицу. При нахождении новых сеансов, добавляем их в таблицу.
     update_pivot_table(show_set_api,show_set_db,cur,connect_db)
+    # Заполняем графу SPL_TITLE в сводной таблице.
     fill_pivot_spl_title(cur,connect_db)
     connect_db.close()
