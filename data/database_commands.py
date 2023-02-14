@@ -101,3 +101,10 @@ def delete_raw_sql(theathre, room,table_type, id_show):
     cur.execute(sql)
     connect.commit()
     connect.close()
+
+def prepare_set_show_from_db():
+    show_check = set()
+    cur.execute(f'SELECT SHOW_NAME_API FROM PIVOT_SHOW_TABLE')
+    for show in cur.fetchall():
+        show_check.add(show[0])
+    return show_check
