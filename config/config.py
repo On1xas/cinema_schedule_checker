@@ -9,3 +9,4 @@ source_path_arena=r'C:\Users\e.aleynikov\Downloads\Schedule - BY_SS_ArenaCity.xl
 source_path_dana=r'C:\Users\e.aleynikov\Downloads\Schedule - BY_SS_Dana.xlsx'
 source_path_palazzo=r'C:\Users\e.aleynikov\Downloads\Schedule - BY_SS_Palazzo.xlsx'
 source_path_triniti=r'C:\Users\e.aleynikov\Downloads\Schedule - BY_SS_GrodnoTrinity.xlsx'
+destination_path = r'D:\N\Python\cinema_schedule_checker\data'
