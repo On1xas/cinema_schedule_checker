@@ -38,11 +38,11 @@ def parser_tms_triniti():
     time.sleep(1)
     path_to_download = r'C:\Users\e.aleynikov\Downloads'
     os.chdir(path_to_download)
-    source_path_palazzo = r'C:\Users\e.aleynikov\Downloads\Schedule - BY_SS_GrodnoTrinity.xlsx'
+    source_path_triniti = r'C:\Users\e.aleynikov\Downloads\Schedule - BY_SS_GrodnoTrinity.xlsx'
 
-    if os.path.exists(source_path_palazzo):
+    if os.path.exists(source_path_triniti):
         destination_path = r'D:\N\Python\cinema_schedule_checker\data'
-        shutil.move(source_path_palazzo, destination_path)
+        shutil.move(source_path_triniti, destination_path)
     time.sleep(3)
     wookbook = openpyxl.load_workbook(r'D:\N\Python\cinema_schedule_checker\data\Schedule - BY_SS_GrodnoTrinity.xlsx')
     worksheet = wookbook.active
