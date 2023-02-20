@@ -42,7 +42,7 @@ def parser_tms_dana():
         destination_path = r'D:\N\Python\cinema_schedule_checker\data'
         shutil.move(source_path_dana, destination_path)
     time.sleep(3)
-    wookbook = openpyxl.load_workbook(r'../data/Schedule - BY_SS_Dana.xlsx')
+    wookbook = openpyxl.load_workbook(r'D:\N\Python\cinema_schedule_checker\data\Schedule - BY_SS_Dana.xlsx')
     worksheet = wookbook.active
     data = []
     for i in range(1, worksheet.max_row):
