@@ -5,15 +5,18 @@ import openpyxl
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
-from config.config import parsing_url_dana, source_path_dana
+from config.config import parsing_url_palazzo, source_path_palazzo
 import sqlite3
-def parser_tms_dana():
+
+
+def parser_tms_palazzo():
     driver = webdriver.Chrome()
-    driver.get(parsing_url_dana)  # Подключаемся на TMS Dana
+    driver.get(parsing_url_palazzo)  # Подключаемся на TMS Dana
     driver.maximize_window()
     time.sleep(3)
     # Ставим курсор в поле ввода пароля
-    element = driver.find_element(By.XPATH, '//*[@id="tms-view-body"]/div/div/div[2]/div[2]/div[2]/form/div[1]/input[2]')
+    element = driver.find_element(By.XPATH,
+                                  '//*[@id="tms-view-body"]/div/div/div[2]/div[2]/div[2]/form/div[1]/input[2]')
     # Вводим пароль
     element.send_keys("Limon4ik")
     # Нажимаем кнопку Login
@@ -36,13 +39,13 @@ def parser_tms_dana():
     path_to_download = r'C:\Users\e.aleynikov\Downloads'
     os.chdir(path_to_download)
     print(os.listdir())
-    source_path_dana = r'C:\Users\e.aleynikov\Downloads\Schedule - BY_SS_Dana.xlsx'
+    source_path_palazzo = r'C:\Users\e.aleynikov\Downloads\Schedule - BY_SS_Palazzo.xlsx'
 
-    if os.path.exists(source_path_dana):
+    if os.path.exists(source_path_palazzo):
         destination_path = r'D:\N\Python\cinema_schedule_checker\data'
-        shutil.move(source_path_dana, destination_path)
+        shutil.move(source_path_palazzo, destination_path)
     time.sleep(3)
-    wookbook = openpyxl.load_workbook(r'../data/Schedule - BY_SS_Dana.xlsx')
+    wookbook = openpyxl.load_workbook(r'D:\N\Python\cinema_schedule_checker\data\Schedule - BY_SS_Palazzo.xlsx')
     worksheet = wookbook.active
     data = []
     for i in range(1, worksheet.max_row):
@@ -52,6 +55,6 @@ def parser_tms_dana():
         del temp[2], temp[2], temp[2], temp[2], temp[2]
         data.append(tuple(temp))
     return data
-    # # os.remove('../data/Schedule - BY_SS_Dana.xlsx')
+    # # os.remove('../data/Schedule - BY_SS_Palazzo.xlsx')
 
 
