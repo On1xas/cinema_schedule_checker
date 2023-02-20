@@ -7,5 +7,5 @@ tms_password='Limon4ik'
 path_to_download=r'C:\Users\e.aleynikov\Downloads'
 source_path_arena=r'C:\Users\e.aleynikov\Downloads\Schedule - BY_SS_ArenaCity.xlsx'
 source_path_dana=r'C:\Users\e.aleynikov\Downloads\Schedule - BY_SS_Dana.xlsx'
-# source_path_palazzo
-# source_path_triniti
+source_path_palazzo=r'C:\Users\e.aleynikov\Downloads\Schedule - BY_SS_Palazzo.xlsx'
+source_path_triniti=r'C:\Users\e.aleynikov\Downloads\Schedule - BY_SS_GrodnoTrinity.xlsx'
