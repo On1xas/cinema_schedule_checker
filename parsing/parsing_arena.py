@@ -30,7 +30,6 @@ def parser_tms_arena():
     time.sleep(1)
     path_to_download = r'C:\Users\e.aleynikov\Downloads'
     os.chdir(path_to_download)
-    print(os.listdir())
     source_path_arena = r'C:\Users\e.aleynikov\Downloads\Schedule - BY_SS_ArenaCity.xlsx'
 
     if os.path.exists(source_path_arena):

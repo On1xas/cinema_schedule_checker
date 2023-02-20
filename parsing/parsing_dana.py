@@ -35,7 +35,6 @@ def parser_tms_dana():
     time.sleep(1)
     path_to_download = r'C:\Users\e.aleynikov\Downloads'
     os.chdir(path_to_download)
-    print(os.listdir())
     source_path_dana = r'C:\Users\e.aleynikov\Downloads\Schedule - BY_SS_Dana.xlsx'
 
     if os.path.exists(source_path_dana):

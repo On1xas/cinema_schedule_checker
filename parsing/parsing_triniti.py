@@ -38,7 +38,6 @@ def parser_tms_triniti():
     time.sleep(1)
     path_to_download = r'C:\Users\e.aleynikov\Downloads'
     os.chdir(path_to_download)
-    print(os.listdir())
     source_path_palazzo = r'C:\Users\e.aleynikov\Downloads\Schedule - BY_SS_GrodnoTrinity.xlsx'
 
     if os.path.exists(source_path_palazzo):
