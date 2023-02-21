@@ -111,10 +111,12 @@ import sqlite3
 # connect.commit()
 # connect.close()
 
-with open('run-script.bat', 'w') as file:
-    file.write('@echo off\n')
-    directory=os.getcwd()
-    file.write(f'{directory[0:2]}\n')
-    file.write(f'cd {directory[3:]}\n')
-    file.write('python main.py\n')
-    file.write('@pause\n')
+# with open('run-script.bat', 'w') as file:
+#     file.write('@echo off\n')
+#     directory=os.getcwd()
+#     file.write(f'{directory[0:2]}\n')
+#     file.write(f'cd {directory[3:]}\n')
+#     file.write('python main.py\n')
+#     file.write('@pause\n')
+
+print('setup is Done!')
