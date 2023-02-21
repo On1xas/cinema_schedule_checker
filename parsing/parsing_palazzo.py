@@ -55,7 +55,6 @@ def parser_tms_palazzo():
             temp.append(col[i].value)
         del temp[2], temp[2], temp[2], temp[2], temp[2]
         data.append(tuple(temp))
-        os.remove(r'D:\N\Python\cinema_schedule_checker\data\Schedule - BY_SS_Palazzo.xlsx')
     return data
 
 
