@@ -10,4 +10,5 @@ source_path_arena=fr'{path_to_download}\Schedule - BY_SS_ArenaCity.xlsx'
 source_path_dana=fr'{path_to_download}\Schedule - BY_SS_Dana.xlsx'
 source_path_palazzo=fr'{path_to_download}\Schedule - BY_SS_Palazzo.xlsx'
 source_path_triniti=fr'{path_to_download}\Schedule - BY_SS_GrodnoTrinity.xlsx'
-destination_path = fr'{os.path.abspath("config.py")[:-17]}\data'
+project_path=os.path.abspath("config.py")[:-17]
+destination_path = fr'{project_path}\data'
