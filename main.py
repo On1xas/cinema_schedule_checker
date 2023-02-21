@@ -95,3 +95,4 @@ if __name__ == '__main__':
     check_show('TRINITI', cur)
 
     connect_db.close()
+#
