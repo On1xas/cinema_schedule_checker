@@ -5,6 +5,7 @@ from lxml import etree
 import xml.etree.ElementTree as ET
 from config.config import parsing_url_api
 import datetime
+import colorama
 
 
 def parse_schedule_api():
@@ -32,7 +33,7 @@ def parse_schedule_api():
         url = f'{parsing_url_api}{dates}'
     else:
         url = f'{parsing_url_api}{dates}&theater={theatre}'
-    print(f"***Выполняю запрос сеансов на {dates} из программного обеспечения кинотеатра***")
+    print(f"***Выполняю запрос сеансов на {colorama.Fore.MAGENTA}{dates}{colorama.Style.RESET_ALL} из программного обеспечения кинотеатра***")
     request = requests.get(url)
     if request.status_code == 200:
         print(f'***Ответ получен успешно***')
@@ -49,4 +50,3 @@ def parse_schedule_api():
         print(
             f"""***Проверьте полученные данные, возможно запрос был выполнен некорректно или не выполнен вовсе. Ошибка запроса {request.status_code}.***""")
         return None
-
