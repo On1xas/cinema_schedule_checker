@@ -25,7 +25,7 @@ def parser_tms_triniti():
     # Нажимаем Schedule
     driver.find_element(By.XPATH,
                         '/html/body/tms/div/div[5]/header/div[5]/tms-navigation-header-menu/div[4]/div/div[1]').click()
-    time.sleep(2)
+    time.sleep(1)
     # Нажимаем Прогрузить неделю
     driver.find_element(By.XPATH,
                         '//*[@id="tms-view-body"]/tms-schedule-builder/div/div/tms-date-range-picker/div/button[2]').click()
@@ -36,6 +36,9 @@ def parser_tms_triniti():
     driver.find_element(By.XPATH,
                         '//*[@id="tms-view-body"]/tms-schedule-builder/div/div/tms-export-button/tms-dropdown-actions/tms-dropdown/div/div/tms-list-select/div[1]/tms-list-select-item[3]/div/span').click()
     time.sleep(1)
+    driver.close()
+    driver.quit()
+
     path_to_download = r'C:\Users\e.aleynikov\Downloads'
     os.chdir(path_to_download)
     source_path_triniti = r'C:\Users\e.aleynikov\Downloads\Schedule - BY_SS_GrodnoTrinity.xlsx'
@@ -53,5 +56,5 @@ def parser_tms_triniti():
             temp.append(col[i].value)
         del temp[2], temp[2], temp[2], temp[2], temp[2]
         data.append(tuple(temp))
+        os.remove(r'D:\N\Python\cinema_schedule_checker\data\Schedule - BY_SS_GrodnoTrinity.xlsx')
     return data
-    # # os.remove('../data/Schedule - BY_SS_GrodnoTrinity.xlsx)
