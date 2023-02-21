@@ -3,7 +3,7 @@ import os
 import sqlite3
 
 # Создаем базу данных database.db в папке data
-connect = sqlite3.connect('data\database.db')
+connect = sqlite3.connect(r'data\database.db')
 cur = connect.cursor()
 for i in range(1, 7):
     # Создаем таблицы залов кинотеатра ARENA_API

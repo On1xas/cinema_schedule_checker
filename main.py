@@ -16,13 +16,13 @@ show_set_api = set()
 
 def check_show(theatre, cursor):
     colorama.init()
-    if theatre == 'ARENA':
+    if theatre.upper() == 'ARENA':
         rooms = 6
-    elif theatre == 'DANA':
+    elif theatre.upper() == 'DANA':
         rooms = 7
-    elif theatre == 'PALAZZO':
+    elif theatre.upper() == 'PALAZZO':
         rooms = 7
-    elif theatre == 'TRINITI':
+    elif theatre.upper() == 'TRINITI':
         rooms = 5
     for room in range(1, rooms + 1):
         show_api = []
