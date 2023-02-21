@@ -1,4 +1,5 @@
 import datetime
+import os
 import sqlite3
 
 
@@ -197,7 +198,19 @@ def clear_parsing_all_table(cur, connect):
         sql = f'DELETE FROM TRINITI_{i}_ROOM_TMS'
         cur.execute(sql)
         connect.commit()
-    print(f'{clear_parsing_all_table.__name__}***Очистка всех таблиц кинозалов выполнена успешно***')
+        if os.path.isfile(r'data/Schedule - BY_SS_ArenaCity.xlsx'):
+            os.remove(r'data/Schedule - BY_SS_ArenaCity.xlsx')
+            print(f'Временный файл Schedule - BY_SS_ArenaCity.xlsx был удален')
+        if os.path.isfile(r'data/Schedule - BY_SS_Dana.xlsx'):
+            os.remove(r'data/Schedule - BY_SS_Dana.xlsx')
+            print(f'Временный файл Schedule - BY_SS_Dana.xlsx был удален')
+        if os.path.isfile(r'data/Schedule - BY_SS_GrodnoTrinity.xlsx'):
+            os.remove(r'data/Schedule - BY_SS_GrodnoTrinity.xlsx')
+            print(f'Временный файл Schedule - BY_SS_GrodnoTrinity.xlsx был удален')
+        if os.path.isfile(r'data/Schedule - BY_SS_Palazzo.xlsx'):
+            os.remove(r'data/Schedule - BY_SS_Palazzo.xlsx')
+            print(f'Временный файл Schedule - BY_SS_Palazzo.xlsx был удален')
+    print(f'{"*"*10}Очистка всех таблиц кинозалов выполнена успешно{"*"*10}')
 
 def delete_raw_sql(theathre, room,table_type, id_show):
     sql=f'DELETE FROM {theathre}_{room}_ROOM_{table_type} WHERE id = {id_show}'
