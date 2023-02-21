@@ -17,4 +17,12 @@
 
 Установка: 
 Переносим проект в корень диска C:\ рабочего компьютера киномехаников.
-Устанавливаем Python 3
+Устанавливаем Python версии 3.10 и выше https://www.python.org/downloads/
+Скачиваем Chromedriver https://chromedriver.storage.googleapis.com/110.0.5481.77/chromedriver_win32.zip
+Распаковываем содержимое архива в папку ..cinema_schedule_checker/chromedriver
+Запускаем install-script.bat
+    В данном скрипте произойдет:
+        установка всех необходимых библиотек в систему;
+        запустится инициализация таблиц базы данных.
+
+Для запуска скрипта, используйте run-script.bat
