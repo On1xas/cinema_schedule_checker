@@ -1,6 +1,5 @@
 /venv/
 /.idea/
-/chromedriver/
 /identifier.sqlite
 # Временные файлы
 /data/Schedule - BY_SS_ArenaCity.xlsx
