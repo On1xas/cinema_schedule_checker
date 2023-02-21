@@ -17,12 +17,14 @@ def parse_schedule_api():
 
     data_parsing_api = []
 
-    theatre = input(
-        '''Введите номер кинотеара:\nArena - 2\nDana - 3\nPalazzo - 19\nTRINITI - 11\n
-        Если хотите сделать выборку по всем кинотеатрам, ничего не вводите\n''')
-    dates = input(
-        '''Введите дату которую хотите проверить в формате 2023-01-01(YYYY-MM-DD). 
-        Если хотите проверить сегодняшний день, ничего не вводите\n''')
+    theatre = ''
+        # input(
+        # '''Введите номер кинотеара:\nArena - 2\nDana - 3\nPalazzo - 19\nTRINITI - 11\n
+        # Если хотите сделать выборку по всем кинотеатрам, ничего не вводите\n''')
+    dates = ''
+        # input(
+        # '''Введите дату которую хотите проверить в формате 2023-01-01(YYYY-MM-DD).
+        # Если хотите проверить сегодняшний день, ничего не вводите\n''')
 
     if dates == "":
         dates = datetime.datetime.now().date()
@@ -30,13 +32,10 @@ def parse_schedule_api():
         url = f'{parsing_url_api}{dates}'
     else:
         url = f'{parsing_url_api}{dates}&theater={theatre}'
-    print(f"{parse_schedule_api.__name__}***Выполняю запрос сеансов из программного обеспечения кинотеатра***")
+    print(f"***Выполняю запрос сеансов на {dates} из программного обеспечения кинотеатра***")
     request = requests.get(url)
-    # with open('schedule_api.txt', 'w', encoding='utf-8') as w:
-    #     w.write(request.text)
-    # with open('schedule_api.txt', 'r', encoding='utf-8') as r:
     if request.status_code == 200:
-        print(f'{parse_schedule_api.__name__}***Ответ получен успешно***')
+        print(f'***Ответ получен успешно***')
         xml = request.text
         parser = etree.XMLParser(recover=True)
         root = ET.fromstring(xml, parser=parser)
@@ -48,7 +47,6 @@ def parse_schedule_api():
         return list(sorted(data_parsing_api, key=lambda x: x[2]))
     else:
         print(
-            f"""{parse_schedule_api.__name__}***Проверьте полученные данные, 
-            возможно запрос был выполнен некорректно или не выполнен вовсе. Ошибка запроса {request.status_code}.***""")
+            f"""***Проверьте полученные данные, возможно запрос был выполнен некорректно или не выполнен вовсе. Ошибка запроса {request.status_code}.***""")
         return None
 
