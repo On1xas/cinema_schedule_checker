@@ -3,10 +3,8 @@ import time
 import os
 import openpyxl
 from selenium import webdriver
-from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
-from config.config import parsing_url_arena, source_path_arena, path_to_download, project_path
-import sqlite3
+from config.config import parsing_url_arena, source_path_arena, path_to_download, project_path, destination_path
 
 
 def parser_tms_arena():
@@ -33,16 +31,13 @@ def parser_tms_arena():
     time.sleep(1)
     driver.close()
     driver.quit()
-    # path_to_download = r'C:\Users\e.aleynikov\Downloads'
     os.chdir(path_to_download)
-    # source_path_arena = r'C:\Users\e.aleynikov\Downloads\Schedule - BY_SS_ArenaCity.xlsx'
 
     if os.path.exists(source_path_arena):
-        destination_path = fr'{project_path}\data'
         shutil.move(source_path_arena, destination_path)
     time.sleep(1)
 
-    wookbook = openpyxl.load_workbook(fr'{project_path}\data\Schedule - BY_SS_ArenaCity.xlsx')
+    wookbook = openpyxl.load_workbook(f'{project_path}\data\Schedule - BY_SS_ArenaCity.xlsx')
     worksheet = wookbook.active
     data = []
     for i in range(1, worksheet.max_row):
