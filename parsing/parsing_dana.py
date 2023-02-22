@@ -5,7 +5,7 @@ import openpyxl
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
-from config.config import parsing_url_dana, source_path_dana
+from config.config import parsing_url_dana, source_path_dana, project_path, destination_path, path_to_download
 import sqlite3
 def parser_tms_dana():
     driver = webdriver.Chrome()
@@ -35,15 +35,15 @@ def parser_tms_dana():
     time.sleep(1)
     driver.close()
     driver.quit()
-    path_to_download = r'C:\Users\e.aleynikov\Downloads'
+    #path_to_download = r'C:\Users\e.aleynikov\Downloads'
     os.chdir(path_to_download)
-    source_path_dana = r'C:\Users\e.aleynikov\Downloads\Schedule - BY_SS_Dana.xlsx'
+    #source_path_dana = r'C:\Users\e.aleynikov\Downloads\Schedule - BY_SS_Dana.xlsx'
 
     if os.path.exists(source_path_dana):
-        destination_path = r'D:\N\Python\cinema_schedule_checker\data'
+        #destination_path = r'D:\N\Python\cinema_schedule_checker\data'
         shutil.move(source_path_dana, destination_path)
     time.sleep(3)
-    wookbook = openpyxl.load_workbook(r'D:\N\Python\cinema_schedule_checker\data\Schedule - BY_SS_Dana.xlsx')
+    wookbook = openpyxl.load_workbook(f'{project_path}\data\Schedule - BY_SS_Dana.xlsx')
     worksheet = wookbook.active
     data = []
     for i in range(1, worksheet.max_row):
