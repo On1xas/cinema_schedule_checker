@@ -17,7 +17,7 @@ def parse_schedule_api():
     """
 
     data_parsing_api = []
-
+    colorama.init()
     theatre = ''
         # input(
         # '''Введите номер кинотеара:\nArena - 2\nDana - 3\nPalazzo - 19\nTRINITI - 11\n
@@ -41,10 +41,14 @@ def parse_schedule_api():
         parser = etree.XMLParser(recover=True)
         root = ET.fromstring(xml, parser=parser)
         for i in range(1, len(root[0])):
+            if "(RU SUB)" in root[0][i][15].text:
+                audio_format="EN-RU"
+            else:
+                audio_format="RU-RU"
             data_parsing_api.append(
                 (
                     root[0][i][29].text, root[0][i][28].text, root[0][i][2].text, root[0][i][15].text,
-                    root[0][i][34].text))
+                    root[0][i][34].text, audio_format))
         return list(sorted(data_parsing_api, key=lambda x: x[2]))
     else:
         print(

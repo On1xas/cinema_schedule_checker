@@ -28,11 +28,11 @@ def check_show(theatre, cursor):
         show_api = []
         show_tms = []
         print(f'{"*" * 10} ПРОВЕРКА КИНОТЕАТРА {theatre} ЗАЛ {room}  {"*" * 10}')
-        tmpl = f'SELECT SHOW_NAME, SHOW_TIME FROM {theatre}_{room}_ROOM_API'
+        tmpl = f'SELECT SHOW_NAME, SHOW_TIME, FORMAT, AUDIO FROM {theatre}_{room}_ROOM_API'
         cursor.execute(tmpl)
         for show in cursor.fetchall():
             show_api.append(
-                (show[0], show_dict[show[0]], str(datetime.datetime.strptime(show[1], '%Y-%m-%dT%H:%M:%S'))))
+                (show[0], show_dict[show[0]], str(datetime.datetime.strptime(show[1], '%Y-%m-%dT%H:%M:%S')), show[2], show[3]))
 
         tmpl = f'SELECT SPL_TITLE, SHOW_START FROM {theatre}_{room}_ROOM_TMS'
         cursor.execute(tmpl)
@@ -46,7 +46,8 @@ def check_show(theatre, cursor):
                 flag_spl = show[1] in showtms[0]
                 flag_time = show[2] == showtms[1]
                 if flag_time and flag_spl:
-                    print(colorama.Fore.GREEN + f'Сеанс {show[0]} в {show[2][11:-3]} GOOD')
+                    print(colorama.Fore.GREEN + f'Сеанс {show[0]} в {show[2][11:-3]} GOOD {colorama.Fore.BLUE if show[3] == "3D" else colorama.Fore.GREEN} {show[3]} {colorama.Fore.GREEN if show[4] == "RU-RU" else colorama.Fore.RED} {show[4]}')
+
                     print(colorama.Style.RESET_ALL, end='')
                     break
                 if flag_time == True and flag_spl == False:
@@ -54,7 +55,7 @@ def check_show(theatre, cursor):
             else:
                 if error_reason=="":
                     error_reason='Неверное время сеанса в TMS или сеанса нет в TMS'
-                print(colorama.Fore.RED + f'Сеанс {show[0]} в {show[2][11:-3]} BAD. REASON: {error_reason}')
+                print(colorama.Fore.RED + f'Сеанс {show[0]} в {show[2][11:-3]} BAD. {colorama.Fore.BLUE if show[3] == "3D" else colorama.Fore.GREEN} {show[3]} {colorama.Fore.YELLOW if show[4] == "RU-RU" else colorama.Fore.RED} {show[4]} {colorama.Fore.RED} REASON: {error_reason}')
                 print(colorama.Style.RESET_ALL, end='')
 
 
