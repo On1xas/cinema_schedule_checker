@@ -1,9 +1,9 @@
 # pip install requests lxml, datetime, sqlite3, os, selenium, shutil, openpyxl
 import os
 import sqlite3
-
+from config.config import project_path
 # Создаем базу данных database.db в папке data
-connect = sqlite3.connect(r'data\database.db')
+connect = sqlite3.connect(f'data\database.db')
 cur = connect.cursor()
 for i in range(1, 7):
     # Создаем таблицы залов кинотеатра ARENA_API
