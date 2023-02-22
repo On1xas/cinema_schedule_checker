@@ -33,7 +33,7 @@ def parse_schedule_api():
         url = f'{parsing_url_api}{dates}'
     else:
         url = f'{parsing_url_api}{dates}&theater={theatre}'
-    print(f"***Выполняю запрос сеансов на {colorama.Fore.MAGENTA}{dates}{colorama.Style.RESET_ALL} из программного обеспечения кинотеатра***")
+    print(f"***Выполняю запрос сеансов на {colorama.Fore.RED} {dates} {colorama.Style.RESET_ALL} из программного обеспечения кинотеатра***")
     request = requests.get(url)
     if request.status_code == 200:
         print(f'***Ответ получен успешно***')
