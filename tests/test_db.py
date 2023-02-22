@@ -56,3 +56,4 @@ connect_db.close()
 # a=datetime.datetime.strptime(,'%Y-%m-%dT%H:%M:%S.%f%z')
 # print(a+datetime.timedelta(minutes=10))
 # '2023-02-14T10:17:00.000+0300'
+# homepath = os.getenv('USERPROFILE')
