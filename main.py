@@ -84,11 +84,13 @@ if __name__ == '__main__':
     insert_data_tms_dana_sql(parser_tms_dana(), cur, connect_db)
     insert_data_tms_palazzo_sql(parser_tms_palazzo(), cur, connect_db)
     insert_data_tms_triniti_sql(parser_tms_triniti(), cur, connect_db)
+    # Подготавливаем словарь с названием фильма = название SPL
     show_dict = dict()
     tmpl = f'SELECT SHOW_NAME_API,SPL_TITLE_NAME FROM PIVOT_SHOW_TABLE'
     cur.execute(tmpl)
     for show in cur.fetchall():
         show_dict[show[0]] = show[1]
+    # Делаем сверку сеансов кинотеатров
     check_show('ARENA', cur)
     check_show('PALAZZO', cur)
     check_show('DANA', cur)
