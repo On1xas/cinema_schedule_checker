@@ -4,8 +4,8 @@ import sqlite3
 from config.config import table_th_names, room_names, theatre_names
 
 
-def insert_data_api_sql(show: tuple):
-    return f"INSERT INTO {table_th_names[theatre_names.index(show[0])]}_{room_names[theatre_names.index(show[0])].index(show[1]) + 1}_ROOM_API (TH_NAME, ROOM, SHOW_TIME, SHOW_NAME, FORMAT, AUDIO) VALUES(?,?,?,?,?,?)"
+# def insert_data_api_sql(show: tuple):
+#     return f"INSERT INTO {table_th_names[theatre_names.index(show[0])]}_{room_names[theatre_names.index(show[0])].index(show[1]) + 1}_ROOM_API (TH_NAME, ROOM, SHOW_TIME, SHOW_NAME, FORMAT, AUDIO) VALUES(?,?,?,?,?,?)"
 
 
 def insert_data_tms_arena_sql(data_parsing_arena, cur, conn, date=str(datetime.date.today())):
