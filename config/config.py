@@ -12,3 +12,10 @@ source_path_palazzo=f'{path_to_download}\Schedule - BY_SS_Palazzo.xlsx'
 source_path_triniti=f'{path_to_download}\Schedule - BY_SS_GrodnoTrinity.xlsx'
 project_path=os.path.abspath("main.py")[:-8]
 destination_path = f'{project_path}\data'
+theatre_names = ['mooon в ТРЦ Palazzo', 'Silver Screen в ТРЦ Arena city', 'mooon в ТРЦ Dana Mall', 'mooon в ТРК Triniti']
+room_names = [['Зал 1 mooon IMAX', 'Зал 2 Vegas', 'Зал 3 VIP', 'Зал 4 Resto', 'Зал 5 mooon+  ', 'Зал 6 Kids',
+         'Зал 7 Visa Premiere'],
+        ['Зал 1', 'Зал 2', 'Зал 3', 'Зал 4', 'Зал 5', 'Зал 6'],
+        ['Зал 1 Premiere', 'Зал 2', 'Зал 3 Screen X', 'Зал 4 Vegas lounge', 'Зал 5', 'Зал 6 VIP', 'Зал 7 VIP'],
+        ['Зал 1', 'Зал 2 Lounge', 'Зал 3 Premiere', 'Зал 4 Resto', 'Зал 5 VIP']]
+table_th_names = ['PALAZZO', 'ARENA', 'DANA', 'TRINITI']
