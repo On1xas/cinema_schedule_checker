@@ -8,6 +8,7 @@ from parsing.parsing_arena import parser_tms_arena
 from parsing.parsing_triniti import parser_tms_triniti
 from parsing.parsing_dana import parser_tms_dana
 from parsing.parsing_palazzo import parser_tms_palazzo
+
 import datetime
 import colorama
 
