@@ -37,14 +37,11 @@ def parser_tms_palazzo():
     time.sleep(1)
     driver.close()
     driver.quit()
-    #path_to_download = r'C:\Users\e.aleynikov\Downloads'
     os.chdir(path_to_download)
-    #source_path_palazzo = r'C:\Users\e.aleynikov\Downloads\Schedule - BY_SS_Palazzo.xlsx'
-
     if os.path.exists(source_path_palazzo):
-        #destination_path = r'D:\N\Python\cinema_schedule_checker\data'
         shutil.move(source_path_palazzo, destination_path)
-    time.sleep(3)
+        print(f'{"*" * 10} Файл Schedule - BY_SS_Palazzo.xlsx перемещен в data/ {"*" * 10}')
+    time.sleep(2)
     wookbook = openpyxl.load_workbook(f'{project_path}\data\Schedule - BY_SS_Palazzo.xlsx')
     worksheet = wookbook.active
     data = []
@@ -54,4 +51,5 @@ def parser_tms_palazzo():
             temp.append(col[i].value)
         del temp[2], temp[2], temp[2], temp[2], temp[2]
         data.append(tuple(temp))
+    print(f'{"*" * 10} Загрузка данных из TMS PALAZZO прошла успешно! {"*" * 10}')
     return data

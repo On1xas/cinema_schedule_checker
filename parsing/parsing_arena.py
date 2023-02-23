@@ -35,7 +35,8 @@ def parser_tms_arena():
 
     if os.path.exists(source_path_arena):
         shutil.move(source_path_arena, destination_path)
-    time.sleep(1)
+    print(f'{"*" * 10} Файл Schedule - BY_SS_ArenaCity.xlsx перемещен в data/ {"*" * 10}')
+    time.sleep(2)
 
     wookbook = openpyxl.load_workbook(f'{project_path}\data\Schedule - BY_SS_ArenaCity.xlsx')
     worksheet = wookbook.active
@@ -46,4 +47,5 @@ def parser_tms_arena():
             temp.append(col[i].value)
         del temp[2], temp[2], temp[2], temp[2], temp[2]
         data.append(tuple(temp))
+    print(f'{"*" * 10} Загрузка данных из TMS ARENA прошла успешно! {"*" * 10}')
     return data
