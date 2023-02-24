@@ -119,4 +119,13 @@ with open('run-script.bat', 'w') as file:
     file.write('python main.py\n')
     file.write('@pause\n')
 
+with open('update-spl-script.bat', 'w') as file:
+    file.write('@echo off\n')
+    directory=os.getcwd()
+    file.write(f'{directory[0:2]}\n')
+    file.write(f'cd {directory[3:]}\n')
+    file.write('python application/__init__.py\n')
+    file.write('@pause\n')
+
+
 print('setup is Done!')
