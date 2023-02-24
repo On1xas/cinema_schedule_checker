@@ -60,7 +60,7 @@ if __name__ == '__main__':
     connect_db = sqlite3.connect('data\database.db')
     cur = connect_db.cursor()
     # # Очистка таблиц от предыдущих данных сеансов
-    # clear_parsing_all_table(cur, connect_db)
+    clear_parsing_all_table(cur, connect_db)
     # # Подготавливаем множество названий сеансов которое знает база данных
     show_set_db = prepare_set_show_from_db(cur)
     # Запрашиваем сеансы из программного обеспечения букера
@@ -78,10 +78,10 @@ if __name__ == '__main__':
     # Заполняем графу SPL_TITLE в сводной таблице.
     fill_pivot_spl_title(cur, connect_db)
     # Выполняем парсинг серверов TMS и вносим данные в БД по залам
-    # insert_data_tms_arena_sql(parser_tms_arena(), cur, connect_db)
-    # insert_data_tms_dana_sql(parser_tms_dana(), cur, connect_db)
-    # insert_data_tms_palazzo_sql(parser_tms_palazzo(), cur, connect_db)
-    # insert_data_tms_triniti_sql(parser_tms_triniti(), cur, connect_db)
+    insert_data_tms_palazzo_sql(parser_tms_palazzo(), cur, connect_db)
+    insert_data_tms_arena_sql(parser_tms_arena(), cur, connect_db)
+    insert_data_tms_dana_sql(parser_tms_dana(), cur, connect_db)
+    insert_data_tms_triniti_sql(parser_tms_triniti(), cur, connect_db)
     # # Подготавливаем словарь с названием фильма = название SPL
     show_dict = dict()
     tmpl = f'SELECT SHOW_NAME_API,SPL_TITLE_NAME FROM PIVOT_SHOW_TABLE'
