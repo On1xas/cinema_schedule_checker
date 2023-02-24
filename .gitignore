@@ -1,8 +1,12 @@
 /venv/
 /.idea/
+data/database.db
 /identifier.sqlite
 # Временные файлы
 /data/Schedule - BY_SS_ArenaCity.xlsx
 /data/Schedule - BY_SS_Dana.xlsx
 /data/Schedule - BY_SS_GrodnoTrinity.xlsx
 /data/Schedule - BY_SS_Palazzo.xlsx
+# Установочные файлы
+run-script.bat
+update-spl-script.bat
