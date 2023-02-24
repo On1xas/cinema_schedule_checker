@@ -13,9 +13,17 @@ def set_spl_name():
     connect.commit()
     print(f'SPL NAME: {spl} добавлен к ID {iid}')
 
+def get_table():
+    print("-"*50)
+    sql = f'SELECT id, SHOW_NAME_API, SPL_TITLE_NAME FROM PIVOT_SHOW_TABLE'
+    cursor.execute(sql)
+    for show in cursor.fetchall():
+        print(str(f"ID {show[0]}").rjust(7), end="  ")
+        print(str(f"{show[1]}").ljust(50), end="")
+        print(str(f"SPL: {show[2]}").ljust(50))
 
 window = Tk()
-window.geometry('300x100')
+window.geometry('300x125')
 window.title('Обновление сводной таблицы')
 window.resizable(False, False)
 window.iconbitmap()
@@ -27,6 +35,7 @@ tkinter.Label(window, text='Новое название SPL').grid(row=2, column
 new_spl_name = tkinter.Entry(window)
 new_spl_name.grid(row=2, column=1)
 ttk.Button(window, text='Отправить в БД', command=set_spl_name).grid(row=3, column=1, sticky='we')
+ttk.Button(window, text='Показать Таблицу', command=get_table).grid(row=4, column=1, sticky='we')
 window.grid_columnconfigure(0, minsize=100)
 window.grid_columnconfigure(1, minsize=100)
 window.grid_columnconfigure(2, minsize=100)
