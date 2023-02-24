@@ -62,21 +62,21 @@ if __name__ == '__main__':
     # # Очистка таблиц от предыдущих данных сеансов
     # clear_parsing_all_table(cur, connect_db)
     # # Подготавливаем множество названий сеансов которое знает база данных
-    # show_set_db = prepare_set_show_from_db(cur)
-    # # Запрашиваем сеансы из программного обеспечения букера
-    # parse_api = parse_schedule_api()
-    # # Вносим данные в таблицы залов и ищем новые сеансы о которых не знает система, добавляем
-    # for show in parse_api:
-    #     # Подготавливаем SQL запрос на добавления данных в таблицу залов
-    #     sql = f"INSERT INTO {table_th_names[theatre_names.index(show[0])]}_{room_names[theatre_names.index(show[0])].index(show[1]) + 1}_ROOM_API (TH_NAME, ROOM, SHOW_TIME, SHOW_NAME, FORMAT, AUDIO) VALUES(?,?,?,?,?,?) "
-    #     show_set_api.add(show[3])
-    #     # Отправляем запрос INSERT в БД и передаем в него кортеж сеанса
-    #     cur.execute(sql, show)
-    #     connect_db.commit()
-    # # Обновляем сводную таблицу. При нахождении новых сеансов, добавляем их в таблицу.
-    # update_pivot_table(show_set_api, show_set_db, cur, connect_db)
-    # # Заполняем графу SPL_TITLE в сводной таблице.
-    # fill_pivot_spl_title(cur, connect_db)
+    show_set_db = prepare_set_show_from_db(cur)
+    # Запрашиваем сеансы из программного обеспечения букера
+    parse_api = parse_schedule_api()
+    # Вносим данные в таблицы залов и ищем новые сеансы о которых не знает система, добавляем
+    for show in parse_api:
+        # Подготавливаем SQL запрос на добавления данных в таблицу залов
+        sql = f"INSERT INTO {table_th_names[theatre_names.index(show[0])]}_{room_names[theatre_names.index(show[0])].index(show[1]) + 1}_ROOM_API (TH_NAME, ROOM, SHOW_TIME, SHOW_NAME, FORMAT, AUDIO) VALUES(?,?,?,?,?,?) "
+        show_set_api.add(show[3])
+        # Отправляем запрос INSERT в БД и передаем в него кортеж сеанса
+        cur.execute(sql, show)
+        connect_db.commit()
+    # Обновляем сводную таблицу. При нахождении новых сеансов, добавляем их в таблицу.
+    update_pivot_table(show_set_api, show_set_db, cur, connect_db)
+    # Заполняем графу SPL_TITLE в сводной таблице.
+    fill_pivot_spl_title(cur, connect_db)
     # Выполняем парсинг серверов TMS и вносим данные в БД по залам
     # insert_data_tms_arena_sql(parser_tms_arena(), cur, connect_db)
     # insert_data_tms_dana_sql(parser_tms_dana(), cur, connect_db)
@@ -89,8 +89,8 @@ if __name__ == '__main__':
     for show in cur.fetchall():
         show_dict[show[0]] = show[1]
     # Делаем сверку сеансов кинотеатров
-    check_show('ARENA', len(room_names[1]), cur)
     check_show('PALAZZO', len(room_names[0]), cur)
+    check_show('ARENA', len(room_names[1]), cur)
     check_show('DANA', len(room_names[2]), cur)
     check_show('TRINITI', len(room_names[3]), cur)
 
