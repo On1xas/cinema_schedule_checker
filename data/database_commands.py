@@ -6,7 +6,7 @@ from config.config import table_th_names, room_names, theatre_names
 
 # def insert_data_api_sql(show: tuple):
 #     return f"INSERT INTO {table_th_names[theatre_names.index(show[0])]}_{room_names[theatre_names.index(show[0])].index(show[1]) + 1}_ROOM_API (TH_NAME, ROOM, SHOW_TIME, SHOW_NAME, FORMAT, AUDIO) VALUES(?,?,?,?,?,?)"
-
+#
 
 def insert_data_tms_arena_sql(data_parsing_arena, cur, conn, date=str(datetime.date.today())):
     for show in data_parsing_arena:
@@ -49,37 +49,37 @@ def insert_data_tms_palazzo_sql(data_parsing_palazzo, cur, conn, date=str(dateti
             if show[0] == 'R1 IMAX':
                 cur.execute(
                     "INSERT INTO PALAZZO_1_ROOM_TMS (TH_NAME, ROOM, SHOW_START, SPL_TITLE, CPL_TITLE) VALUES (?, ?, ?, ?, ?)",
-                    ("mooon в ТРЦ Palazzo", show[0], show[1], show[2][:19], show[3]))
+                    ("mooon в ТРЦ Palazzo", show[0], show[1], show[2], show[3]))
                 conn.commit()
             elif show[0] == 'R2 F':
                 cur.execute(
                     "INSERT INTO PALAZZO_2_ROOM_TMS (TH_NAME, ROOM, SHOW_START, SPL_TITLE, CPL_TITLE) VALUES (?, ?, ?, ?, ?)",
-                    ("mooon в ТРЦ Palazzo", show[0], show[1], show[2][:19], show[3]))
+                    ("mooon в ТРЦ Palazzo", show[0], show[1], show[2], show[3]))
                 conn.commit()
             elif show[0] == 'R3 F':
                 cur.execute(
                     "INSERT INTO PALAZZO_3_ROOM_TMS (TH_NAME, ROOM, SHOW_START, SPL_TITLE, CPL_TITLE) VALUES (?, ?, ?, ?, ?)",
-                    ("mooon в ТРЦ Palazzo", show[0], show[1], show[2][:19], show[3]))
+                    ("mooon в ТРЦ Palazzo", show[0], show[1], show[2], show[3]))
                 conn.commit()
             elif show[0] == 'R4 S':
                 cur.execute(
                     "INSERT INTO PALAZZO_4_ROOM_TMS (TH_NAME, ROOM, SHOW_START, SPL_TITLE, CPL_TITLE) VALUES (?, ?, ?, ?, ?)",
-                    ("mooon в ТРЦ Palazzo", show[0], show[1], show[2][:19], show[3]))
+                    ("mooon в ТРЦ Palazzo", show[0], show[1], show[2], show[3]))
                 conn.commit()
             elif show[0] == 'R5 F 3D':
                 cur.execute(
                     "INSERT INTO PALAZZO_5_ROOM_TMS (TH_NAME, ROOM, SHOW_START, SPL_TITLE, CPL_TITLE) VALUES (?, ?, ?, ?, ?)",
-                    ("mooon в ТРЦ Palazzo", show[0], show[1], show[2][:19], show[3]))
+                    ("mooon в ТРЦ Palazzo", show[0], show[1], show[2], show[3]))
                 conn.commit()
             elif show[0] == 'R6 F':
                 cur.execute(
                     "INSERT INTO PALAZZO_6_ROOM_TMS (TH_NAME, ROOM, SHOW_START, SPL_TITLE, CPL_TITLE) VALUES (?, ?, ?, ?, ?)",
-                    ("mooon в ТРЦ Palazzo", show[0], show[1], show[2][:19], show[3]))
+                    ("mooon в ТРЦ Palazzo", show[0], show[1], show[2], show[3]))
                 conn.commit()
             elif show[0] == 'R7 S':
                 cur.execute(
                     "INSERT INTO PALAZZO_7_ROOM_TMS (TH_NAME, ROOM, SHOW_START, SPL_TITLE, CPL_TITLE) VALUES (?, ?, ?, ?, ?)",
-                    ("mooon в ТРЦ Palazzo", show[0], show[1], show[2][:19], show[3]))
+                    ("mooon в ТРЦ Palazzo", show[0], show[1], show[2], show[3]))
                 conn.commit()
 
 
