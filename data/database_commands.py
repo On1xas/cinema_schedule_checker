@@ -1,156 +1,51 @@
 import datetime
 import os
 import sqlite3
-from config.config import table_th_names, room_names, theatre_names
-
-
-# def insert_data_api_sql(show: tuple):
-#     return f"INSERT INTO {table_th_names[theatre_names.index(show[0])]}_{room_names[theatre_names.index(show[0])].index(show[1]) + 1}_ROOM_API (TH_NAME, ROOM, SHOW_TIME, SHOW_NAME, FORMAT, AUDIO) VALUES(?,?,?,?,?,?)"
-#
-
-def insert_data_tms_arena_sql(data_parsing_arena, cur, conn, date=str(datetime.date.today())):
-    for show in data_parsing_arena:
-        if date in show[1]:
-            if show[0] == 'R1 S':
-                cur.execute(
-                    "INSERT INTO ARENA_1_ROOM_TMS (TH_NAME, ROOM, SHOW_START, SPL_TITLE, CPL_TITLE) VALUES (?, ?, ?, ?, ?)",
-                    ("Silver Screen в ТРЦ Arena city", show[0], show[1], show[2], show[3]))
-                conn.commit()
-            elif show[0] == 'R2 S 3D DA':
-                cur.execute(
-                    "INSERT INTO ARENA_2_ROOM_TMS (TH_NAME, ROOM, SHOW_START, SPL_TITLE, CPL_TITLE) VALUES (?, ?, ?, ?, ?)",
-                    ("Silver Screen в ТРЦ Arena city", show[0], show[1], show[2], show[3]))
-                conn.commit()
-            elif show[0] == 'R3 S':
-                cur.execute(
-                    "INSERT INTO ARENA_3_ROOM_TMS (TH_NAME, ROOM, SHOW_START, SPL_TITLE, CPL_TITLE) VALUES (?, ?, ?, ?, ?)",
-                    ("Silver Screen в ТРЦ Arena city", show[0], show[1], show[2], show[3]))
-                conn.commit()
-            elif show[0] == 'R4 S 3D DA':
-                cur.execute(
-                    "INSERT INTO ARENA_4_ROOM_TMS (TH_NAME, ROOM, SHOW_START, SPL_TITLE, CPL_TITLE) VALUES (?, ?, ?, ?, ?)",
-                    ("Silver Screen в ТРЦ Arena city", show[0], show[1], show[2], show[3]))
-                conn.commit()
-            elif show[0] == 'R5 S':
-                cur.execute(
-                    "INSERT INTO ARENA_5_ROOM_TMS (TH_NAME, ROOM, SHOW_START, SPL_TITLE, CPL_TITLE) VALUES (?, ?, ?, ?, ?)",
-                    ("Silver Screen в ТРЦ Arena city", show[0], show[1], show[2], show[3]))
-                conn.commit()
-            elif show[0] == 'R6 S 3D':
-                cur.execute(
-                    "INSERT INTO ARENA_6_ROOM_TMS (TH_NAME, ROOM, SHOW_START, SPL_TITLE, CPL_TITLE) VALUES (?, ?, ?, ?, ?)",
-                    ("Silver Screen в ТРЦ Arena city", show[0], show[1], show[2], show[3]))
-                conn.commit()
+from config.config import table_th_names, room_names, theatre_names, room_tms_names
 
 
 def insert_data_tms_palazzo_sql(data_parsing_palazzo, cur, conn, date=str(datetime.date.today())):
+    # data_parsing имеет структуру show[0] - № зала, show[1] - Дата\время начала сеанса, show[2] - название SPL в TMS, show[3] - название CPL фильма в плейлисте
     for show in data_parsing_palazzo:
         if date in show[1]:
-            if show[0] == 'R1 IMAX':
-                cur.execute(
-                    "INSERT INTO PALAZZO_1_ROOM_TMS (TH_NAME, ROOM, SHOW_START, SPL_TITLE, CPL_TITLE) VALUES (?, ?, ?, ?, ?)",
-                    ("mooon в ТРЦ Palazzo", show[0], show[1], show[2], show[3]))
-                conn.commit()
-            elif show[0] == 'R2 F':
-                cur.execute(
-                    "INSERT INTO PALAZZO_2_ROOM_TMS (TH_NAME, ROOM, SHOW_START, SPL_TITLE, CPL_TITLE) VALUES (?, ?, ?, ?, ?)",
-                    ("mooon в ТРЦ Palazzo", show[0], show[1], show[2], show[3]))
-                conn.commit()
-            elif show[0] == 'R3 F':
-                cur.execute(
-                    "INSERT INTO PALAZZO_3_ROOM_TMS (TH_NAME, ROOM, SHOW_START, SPL_TITLE, CPL_TITLE) VALUES (?, ?, ?, ?, ?)",
-                    ("mooon в ТРЦ Palazzo", show[0], show[1], show[2], show[3]))
-                conn.commit()
-            elif show[0] == 'R4 S':
-                cur.execute(
-                    "INSERT INTO PALAZZO_4_ROOM_TMS (TH_NAME, ROOM, SHOW_START, SPL_TITLE, CPL_TITLE) VALUES (?, ?, ?, ?, ?)",
-                    ("mooon в ТРЦ Palazzo", show[0], show[1], show[2], show[3]))
-                conn.commit()
-            elif show[0] == 'R5 F 3D':
-                cur.execute(
-                    "INSERT INTO PALAZZO_5_ROOM_TMS (TH_NAME, ROOM, SHOW_START, SPL_TITLE, CPL_TITLE) VALUES (?, ?, ?, ?, ?)",
-                    ("mooon в ТРЦ Palazzo", show[0], show[1], show[2], show[3]))
-                conn.commit()
-            elif show[0] == 'R6 F':
-                cur.execute(
-                    "INSERT INTO PALAZZO_6_ROOM_TMS (TH_NAME, ROOM, SHOW_START, SPL_TITLE, CPL_TITLE) VALUES (?, ?, ?, ?, ?)",
-                    ("mooon в ТРЦ Palazzo", show[0], show[1], show[2], show[3]))
-                conn.commit()
-            elif show[0] == 'R7 S':
-                cur.execute(
-                    "INSERT INTO PALAZZO_7_ROOM_TMS (TH_NAME, ROOM, SHOW_START, SPL_TITLE, CPL_TITLE) VALUES (?, ?, ?, ?, ?)",
-                    ("mooon в ТРЦ Palazzo", show[0], show[1], show[2], show[3]))
-                conn.commit()
+            # переменая room_tms_name[0] - выберает список залов кт Palazzo, по индексу ищет show[0](название зала) и подставляет его №.
+            cur.execute(
+                f"INSERT INTO PALAZZO_{room_tms_names[0].index(show[0]) + 1}_ROOM_TMS (TH_NAME, ROOM, SHOW_START, SPL_TITLE, CPL_TITLE) VALUES (?, ?, ?, ?, ?)",
+                ("mooon в ТРЦ Palazzo", show[0], show[1], show[2], show[3]))
+            conn.commit()
+
+
+def insert_data_tms_arena_sql(data_parsing_arena, cur, conn, date=str(datetime.date.today())):
+    # data_parsing имеет структуру show[0] - № зала, show[1] - Дата\время начала сеанса, show[2] - название SPL в TMS, show[3] - название CPL фильма в плейлисте
+    for show in data_parsing_arena:
+        if date in show[1]:
+            # переменая room_tms_name[1] - выберает список залов кт ARENA, по индексу ищет show[0](название зала) и подставляет его №.
+            cur.execute(
+                f"INSERT INTO ARENA_{room_tms_names[1].index(show[0]) + 1}_ROOM_TMS (TH_NAME, ROOM, SHOW_START, SPL_TITLE, CPL_TITLE) VALUES (?, ?, ?, ?, ?)",
+                ("Silver Screen в ТРЦ Arena city", show[0], show[1], show[2], show[3]))
+            conn.commit()
 
 
 def insert_data_tms_dana_sql(data_parsing_dana, cur, conn, date=str(datetime.date.today())):
+    # data_parsing имеет структуру show[0] - № зала, show[1] - Дата\время начала сеанса, show[2] - название SPL в TMS, show[3] - название CPL фильма в плейлисте
     for show in data_parsing_dana:
         if date in show[1]:
-            if show[0] == 'R1 S 3D DA':
-                cur.execute(
-                    "INSERT INTO DANA_1_ROOM_TMS (TH_NAME, ROOM, SHOW_START, SPL_TITLE, CPL_TITLE) VALUES (?, ?, ?, ?, ?)",
-                    ("mooon в ТРЦ Dana Mall", show[0], show[1], show[2], show[3]))
-                conn.commit()
-            elif show[0] == 'R2 F':
-                cur.execute(
-                    "INSERT INTO DANA_2_ROOM_TMS (TH_NAME, ROOM, SHOW_START, SPL_TITLE, CPL_TITLE) VALUES (?, ?, ?, ?, ?)",
-                    ("mooon в ТРЦ Dana Mall", show[0], show[1], show[2], show[3]))
-                conn.commit()
-            elif show[0] == 'R3 S SX':
-                cur.execute(
-                    "INSERT INTO DANA_3_ROOM_TMS (TH_NAME, ROOM, SHOW_START, SPL_TITLE, CPL_TITLE) VALUES (?, ?, ?, ?, ?)",
-                    ("mooon в ТРЦ Dana Mall", show[0], show[1], show[2], show[3]))
-                conn.commit()
-            elif show[0] == 'R4 S':
-                cur.execute(
-                    "INSERT INTO DANA_4_ROOM_TMS (TH_NAME, ROOM, SHOW_START, SPL_TITLE, CPL_TITLE) VALUES (?, ?, ?, ?, ?)",
-                    ("mooon в ТРЦ Dana Mall", show[0], show[1], show[2], show[3]))
-                conn.commit()
-            elif show[0] == 'R5 S 3D':
-                cur.execute(
-                    "INSERT INTO DANA_5_ROOM_TMS (TH_NAME, ROOM, SHOW_START, SPL_TITLE, CPL_TITLE) VALUES (?, ?, ?, ?, ?)",
-                    ("mooon в ТРЦ Dana Mall", show[0], show[1], show[2], show[3]))
-                conn.commit()
-            elif show[0] == 'R6 S':
-                cur.execute(
-                    "INSERT INTO DANA_6_ROOM_TMS (TH_NAME, ROOM, SHOW_START, SPL_TITLE, CPL_TITLE) VALUES (?, ?, ?, ?, ?)",
-                    ("mooon в ТРЦ Dana Mall", show[0], show[1], show[2], show[3]))
-                conn.commit()
-            elif show[0] == 'R7 S':
-                cur.execute(
-                    "INSERT INTO DANA_7_ROOM_TMS (TH_NAME, ROOM, SHOW_START, SPL_TITLE, CPL_TITLE) VALUES (?, ?, ?, ?, ?)",
-                    ("mooon в ТРЦ Dana Mall", show[0], show[1], show[2], show[3]))
-                conn.commit()
+            # переменая room_tms_name[2] - выберает список залов кт DANA, по индексу ищет show[0](название зала) и подставляет его №.
+            cur.execute(
+                f"INSERT INTO DANA_{room_tms_names[2].index(show[0]) + 1}_ROOM_TMS (TH_NAME, ROOM, SHOW_START, SPL_TITLE, CPL_TITLE) VALUES (?, ?, ?, ?, ?)",
+                ("mooon в ТРЦ Dana Mall", show[0], show[1], show[2], show[3]))
+            conn.commit()
 
 
 def insert_data_tms_triniti_sql(data_parsing_triniti, cur, conn, date=str(datetime.date.today())):
+    # data_parsing имеет структуру show[0] - № зала, show[1] - Дата\время начала сеанса, show[2] - название SPL в TMS, show[3] - название CPL фильма в плейлисте
     for show in data_parsing_triniti:
         if date in show[1]:
-            if show[0] == 'R1':
-                cur.execute(
-                    "INSERT INTO TRINITI_1_ROOM_TMS (TH_NAME, ROOM, SHOW_START, SPL_TITLE, CPL_TITLE) VALUES (?, ?, ?, ?, ?)",
-                    ("mooon в ТРК Triniti", show[0], show[1], show[2], show[3]))
-                conn.commit()
-            elif show[0] == 'R2 S':
-                cur.execute(
-                    "INSERT INTO TRINITI_2_ROOM_TMS (TH_NAME, ROOM, SHOW_START, SPL_TITLE, CPL_TITLE) VALUES (?, ?, ?, ?, ?)",
-                    ("mooon в ТРК Triniti", show[0], show[1], show[2], show[3]))
-                conn.commit()
-            elif show[0] == 'R3 F 3D':
-                cur.execute(
-                    "INSERT INTO TRINITI_3_ROOM_TMS (TH_NAME, ROOM, SHOW_START, SPL_TITLE, CPL_TITLE) VALUES (?, ?, ?, ?, ?)",
-                    ("mooon в ТРК Triniti", show[0], show[1], show[2], show[3]))
-                conn.commit()
-            elif show[0] == 'R4 S':
-                cur.execute(
-                    "INSERT INTO TRINITI_4_ROOM_TMS (TH_NAME, ROOM, SHOW_START, SPL_TITLE, CPL_TITLE) VALUES (?, ?, ?, ?, ?)",
-                    ("mooon в ТРК Triniti", show[0], show[1], show[2], show[3]))
-                conn.commit()
-            elif show[0] == 'R5 S':
-                cur.execute(
-                    "INSERT INTO TRINITI_5_ROOM_TMS (TH_NAME, ROOM, SHOW_START, SPL_TITLE, CPL_TITLE) VALUES (?, ?, ?, ?, ?)",
-                    ("mooon в ТРК Triniti", show[0], show[1], show[2], show[3]))
-                conn.commit()
+            # переменая room_tms_name[3] - выберает список залов кт TRINITI, по индексу ищет show[0](название зала) и подставляет его №.
+            cur.execute(
+                f"INSERT INTO TRINITI_{room_tms_names[3].index(show[0]) + 1}_ROOM_TMS (TH_NAME, ROOM, SHOW_START, SPL_TITLE, CPL_TITLE) VALUES (?, ?, ?, ?, ?)",
+                ("mooon в ТРК Triniti", show[0], show[1], show[2], show[3]))
+            conn.commit()
 
 
 def clear_parsing_all_table(cur, connect):
@@ -178,25 +73,19 @@ def clear_parsing_all_table(cur, connect):
         sql = f'DELETE FROM TRINITI_{i}_ROOM_TMS'
         cur.execute(sql)
         connect.commit()
-        if os.path.isfile(r'data/Schedule - BY_SS_ArenaCity.xlsx'):
-            os.remove(r'data/Schedule - BY_SS_ArenaCity.xlsx')
-            print(f'Временный файл Schedule - BY_SS_ArenaCity.xlsx был удален')
-        if os.path.isfile(r'data/Schedule - BY_SS_Dana.xlsx'):
-            os.remove(r'data/Schedule - BY_SS_Dana.xlsx')
-            print(f'Временный файл Schedule - BY_SS_Dana.xlsx был удален')
-        if os.path.isfile(r'data/Schedule - BY_SS_GrodnoTrinity.xlsx'):
-            os.remove(r'data/Schedule - BY_SS_GrodnoTrinity.xlsx')
-            print(f'Временный файл Schedule - BY_SS_GrodnoTrinity.xlsx был удален')
-        if os.path.isfile(r'data/Schedule - BY_SS_Palazzo.xlsx'):
-            os.remove(r'data/Schedule - BY_SS_Palazzo.xlsx')
-            print(f'Временный файл Schedule - BY_SS_Palazzo.xlsx был удален')
+    if os.path.isfile(r'data/Schedule - BY_SS_ArenaCity.xlsx'):
+        os.remove(r'data/Schedule - BY_SS_ArenaCity.xlsx')
+        print(f'Временный файл Schedule - BY_SS_ArenaCity.xlsx был удален')
+    if os.path.isfile(r'data/Schedule - BY_SS_Dana.xlsx'):
+        os.remove(r'data/Schedule - BY_SS_Dana.xlsx')
+        print(f'Временный файл Schedule - BY_SS_Dana.xlsx был удален')
+    if os.path.isfile(r'data/Schedule - BY_SS_GrodnoTrinity.xlsx'):
+        os.remove(r'data/Schedule - BY_SS_GrodnoTrinity.xlsx')
+        print(f'Временный файл Schedule - BY_SS_GrodnoTrinity.xlsx был удален')
+    if os.path.isfile(r'data/Schedule - BY_SS_Palazzo.xlsx'):
+        os.remove(r'data/Schedule - BY_SS_Palazzo.xlsx')
+        print(f'Временный файл Schedule - BY_SS_Palazzo.xlsx был удален')
     print(f'{"*" * 10}Очистка временных файлов и всех таблиц кинозалов выполнена успешно{"*" * 10}')
-
-
-def delete_raw_sql(theathre, room, table_type, id_show):
-    sql = f'DELETE FROM {theathre}_{room}_ROOM_{table_type} WHERE id = {id_show}'
-    cur.execute(sql)
-    connect.commit()
 
 
 def prepare_set_show_from_db(cur):
@@ -288,3 +177,148 @@ def fill_pivot_spl_title(cursor, connect_db):
 #             return f'INSERT INTO ARENA_5_ROOM_API (TH_NAME, ROOM, SHOW_TIME, SHOW_NAME, FORMAT, AUDIO) VALUES(?,?,?,?,?,?)'
 #         if room == 'Зал 6':
 #             return f"INSERT INTO ARENA_6_ROOM_API (TH_NAME, ROOM, SHOW_TIME, SHOW_NAME, FORMAT, AUDIO) VALUES(?,?,?,?,?,?)"
+
+# def insert_data_tms_palazzo_sql(data_parsing_palazzo, cur, conn, date=str(datetime.date.today())):
+#     for show in data_parsing_palazzo:
+#         if date in show[1]:
+#             if show[0] == 'R1 IMAX':
+#                 cur.execute(
+#                     "INSERT INTO PALAZZO_1_ROOM_TMS (TH_NAME, ROOM, SHOW_START, SPL_TITLE, CPL_TITLE) VALUES (?, ?, ?, ?, ?)",
+#                     ("mooon в ТРЦ Palazzo", show[0], show[1], show[2], show[3]))
+#                 conn.commit()
+#             elif show[0] == 'R2 F':
+#                 cur.execute(
+#                     "INSERT INTO PALAZZO_2_ROOM_TMS (TH_NAME, ROOM, SHOW_START, SPL_TITLE, CPL_TITLE) VALUES (?, ?, ?, ?, ?)",
+#                     ("mooon в ТРЦ Palazzo", show[0], show[1], show[2], show[3]))
+#                 conn.commit()
+#             elif show[0] == 'R3 F':
+#                 cur.execute(
+#                     "INSERT INTO PALAZZO_3_ROOM_TMS (TH_NAME, ROOM, SHOW_START, SPL_TITLE, CPL_TITLE) VALUES (?, ?, ?, ?, ?)",
+#                     ("mooon в ТРЦ Palazzo", show[0], show[1], show[2], show[3]))
+#                 conn.commit()
+#             elif show[0] == 'R4 S':
+#                 cur.execute(
+#                     "INSERT INTO PALAZZO_4_ROOM_TMS (TH_NAME, ROOM, SHOW_START, SPL_TITLE, CPL_TITLE) VALUES (?, ?, ?, ?, ?)",
+#                     ("mooon в ТРЦ Palazzo", show[0], show[1], show[2], show[3]))
+#                 conn.commit()
+#             elif show[0] == 'R5 F 3D':
+#                 cur.execute(
+#                     "INSERT INTO PALAZZO_5_ROOM_TMS (TH_NAME, ROOM, SHOW_START, SPL_TITLE, CPL_TITLE) VALUES (?, ?, ?, ?, ?)",
+#                     ("mooon в ТРЦ Palazzo", show[0], show[1], show[2], show[3]))
+#                 conn.commit()
+#             elif show[0] == 'R6 F':
+#                 cur.execute(
+#                     "INSERT INTO PALAZZO_6_ROOM_TMS (TH_NAME, ROOM, SHOW_START, SPL_TITLE, CPL_TITLE) VALUES (?, ?, ?, ?, ?)",
+#                     ("mooon в ТРЦ Palazzo", show[0], show[1], show[2], show[3]))
+#                 conn.commit()
+#             elif show[0] == 'R7 S':
+#                 cur.execute(
+#                     "INSERT INTO PALAZZO_7_ROOM_TMS (TH_NAME, ROOM, SHOW_START, SPL_TITLE, CPL_TITLE) VALUES (?, ?, ?, ?, ?)",
+#                     ("mooon в ТРЦ Palazzo", show[0], show[1], show[2], show[3]))
+#                 conn.commit()
+
+# def insert_data_api_sql(show: tuple):
+#     return f"INSERT INTO {table_th_names[theatre_names.index(show[0])]}_{room_names[theatre_names.index(show[0])].index(show[1]) + 1}_ROOM_API (TH_NAME, ROOM, SHOW_TIME, SHOW_NAME, FORMAT, AUDIO) VALUES(?,?,?,?,?,?)"
+#
+
+# def insert_data_tms_arena_sql(data_parsing_arena, cur, conn, date=str(datetime.date.today())):
+#     for show in data_parsing_arena:
+#         if date in show[1]:
+#             if show[0] == 'R1 S':
+#                 cur.execute(
+#                     "INSERT INTO ARENA_1_ROOM_TMS (TH_NAME, ROOM, SHOW_START, SPL_TITLE, CPL_TITLE) VALUES (?, ?, ?, ?, ?)",
+#                     ("Silver Screen в ТРЦ Arena city", show[0], show[1], show[2], show[3]))
+#                 conn.commit()
+#             elif show[0] == 'R2 S 3D DA':
+#                 cur.execute(
+#                     "INSERT INTO ARENA_2_ROOM_TMS (TH_NAME, ROOM, SHOW_START, SPL_TITLE, CPL_TITLE) VALUES (?, ?, ?, ?, ?)",
+#                     ("Silver Screen в ТРЦ Arena city", show[0], show[1], show[2], show[3]))
+#                 conn.commit()
+#             elif show[0] == 'R3 S':
+#                 cur.execute(
+#                     "INSERT INTO ARENA_3_ROOM_TMS (TH_NAME, ROOM, SHOW_START, SPL_TITLE, CPL_TITLE) VALUES (?, ?, ?, ?, ?)",
+#                     ("Silver Screen в ТРЦ Arena city", show[0], show[1], show[2], show[3]))
+#                 conn.commit()
+#             elif show[0] == 'R4 S 3D DA':
+#                 cur.execute(
+#                     "INSERT INTO ARENA_4_ROOM_TMS (TH_NAME, ROOM, SHOW_START, SPL_TITLE, CPL_TITLE) VALUES (?, ?, ?, ?, ?)",
+#                     ("Silver Screen в ТРЦ Arena city", show[0], show[1], show[2], show[3]))
+#                 conn.commit()
+#             elif show[0] == 'R5 S':
+#                 cur.execute(
+#                     "INSERT INTO ARENA_5_ROOM_TMS (TH_NAME, ROOM, SHOW_START, SPL_TITLE, CPL_TITLE) VALUES (?, ?, ?, ?, ?)",
+#                     ("Silver Screen в ТРЦ Arena city", show[0], show[1], show[2], show[3]))
+#                 conn.commit()
+#             elif show[0] == 'R6 S 3D':
+#                 cur.execute(
+#                     "INSERT INTO ARENA_6_ROOM_TMS (TH_NAME, ROOM, SHOW_START, SPL_TITLE, CPL_TITLE) VALUES (?, ?, ?, ?, ?)",
+#                     ("Silver Screen в ТРЦ Arena city", show[0], show[1], show[2], show[3]))
+#                 conn.commit()
+
+# def insert_data_tms_dana_sql(data_parsing_dana, cur, conn, date=str(datetime.date.today())):
+#     for show in data_parsing_dana:
+#         if date in show[1]:
+#             if show[0] == 'R1 S 3D DA':
+#                 cur.execute(
+#                     "INSERT INTO DANA_1_ROOM_TMS (TH_NAME, ROOM, SHOW_START, SPL_TITLE, CPL_TITLE) VALUES (?, ?, ?, ?, ?)",
+#                     ("mooon в ТРЦ Dana Mall", show[0], show[1], show[2], show[3]))
+#                 conn.commit()
+#             elif show[0] == 'R2 F':
+#                 cur.execute(
+#                     "INSERT INTO DANA_2_ROOM_TMS (TH_NAME, ROOM, SHOW_START, SPL_TITLE, CPL_TITLE) VALUES (?, ?, ?, ?, ?)",
+#                     ("mooon в ТРЦ Dana Mall", show[0], show[1], show[2], show[3]))
+#                 conn.commit()
+#             elif show[0] == 'R3 S SX':
+#                 cur.execute(
+#                     "INSERT INTO DANA_3_ROOM_TMS (TH_NAME, ROOM, SHOW_START, SPL_TITLE, CPL_TITLE) VALUES (?, ?, ?, ?, ?)",
+#                     ("mooon в ТРЦ Dana Mall", show[0], show[1], show[2], show[3]))
+#                 conn.commit()
+#             elif show[0] == 'R4 S':
+#                 cur.execute(
+#                     "INSERT INTO DANA_4_ROOM_TMS (TH_NAME, ROOM, SHOW_START, SPL_TITLE, CPL_TITLE) VALUES (?, ?, ?, ?, ?)",
+#                     ("mooon в ТРЦ Dana Mall", show[0], show[1], show[2], show[3]))
+#                 conn.commit()
+#             elif show[0] == 'R5 S 3D':
+#                 cur.execute(
+#                     "INSERT INTO DANA_5_ROOM_TMS (TH_NAME, ROOM, SHOW_START, SPL_TITLE, CPL_TITLE) VALUES (?, ?, ?, ?, ?)",
+#                     ("mooon в ТРЦ Dana Mall", show[0], show[1], show[2], show[3]))
+#                 conn.commit()
+#             elif show[0] == 'R6 S':
+#                 cur.execute(
+#                     "INSERT INTO DANA_6_ROOM_TMS (TH_NAME, ROOM, SHOW_START, SPL_TITLE, CPL_TITLE) VALUES (?, ?, ?, ?, ?)",
+#                     ("mooon в ТРЦ Dana Mall", show[0], show[1], show[2], show[3]))
+#                 conn.commit()
+#             elif show[0] == 'R7 S':
+#                 cur.execute(
+#                     "INSERT INTO DANA_7_ROOM_TMS (TH_NAME, ROOM, SHOW_START, SPL_TITLE, CPL_TITLE) VALUES (?, ?, ?, ?, ?)",
+#                     ("mooon в ТРЦ Dana Mall", show[0], show[1], show[2], show[3]))
+#                 conn.commit()
+
+# def insert_data_tms_triniti_sql(data_parsing_triniti, cur, conn, date=str(datetime.date.today())):
+#     for show in data_parsing_triniti:
+#         if date in show[1]:
+#             if show[0] == 'R1':
+#                 cur.execute(
+#                     "INSERT INTO TRINITI_1_ROOM_TMS (TH_NAME, ROOM, SHOW_START, SPL_TITLE, CPL_TITLE) VALUES (?, ?, ?, ?, ?)",
+#                     ("mooon в ТРК Triniti", show[0], show[1], show[2], show[3]))
+#                 conn.commit()
+#             elif show[0] == 'R2 S':
+#                 cur.execute(
+#                     "INSERT INTO TRINITI_2_ROOM_TMS (TH_NAME, ROOM, SHOW_START, SPL_TITLE, CPL_TITLE) VALUES (?, ?, ?, ?, ?)",
+#                     ("mooon в ТРК Triniti", show[0], show[1], show[2], show[3]))
+#                 conn.commit()
+#             elif show[0] == 'R3 F 3D':
+#                 cur.execute(
+#                     "INSERT INTO TRINITI_3_ROOM_TMS (TH_NAME, ROOM, SHOW_START, SPL_TITLE, CPL_TITLE) VALUES (?, ?, ?, ?, ?)",
+#                     ("mooon в ТРК Triniti", show[0], show[1], show[2], show[3]))
+#                 conn.commit()
+#             elif show[0] == 'R4 S':
+#                 cur.execute(
+#                     "INSERT INTO TRINITI_4_ROOM_TMS (TH_NAME, ROOM, SHOW_START, SPL_TITLE, CPL_TITLE) VALUES (?, ?, ?, ?, ?)",
+#                     ("mooon в ТРК Triniti", show[0], show[1], show[2], show[3]))
+#                 conn.commit()
+#             elif show[0] == 'R5 S':
+#                 cur.execute(
+#                     "INSERT INTO TRINITI_5_ROOM_TMS (TH_NAME, ROOM, SHOW_START, SPL_TITLE, CPL_TITLE) VALUES (?, ?, ?, ?, ?)",
+#                     ("mooon в ТРК Triniti", show[0], show[1], show[2], show[3]))
+#                 conn.commit()
