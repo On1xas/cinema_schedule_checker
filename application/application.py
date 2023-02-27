@@ -7,7 +7,11 @@ def clear_data_in_db():
     update_pivot_raw(new_spl,new_id)
     clear_table(table)
     load_table_info(table)
+    entry_id_label.delete(0,tk.END)
+    entry_new_spl_name.delete(0,tk.END)
 
+def delete_raw():
+    delete_select_raw(table)
 
 window = tk.Tk()
 window.title('Тут будет название приложения')
@@ -35,13 +39,15 @@ for head in heads:
     # Передаем команду что данные в ячейках столбцов должна быть поцентру
     table.column(head,  anchor='center')
 
-for row in tmp_data:
-    table.insert("",tk.END, values=row)
+load_table_info(table)
+
 scr_panel=ttk.Scrollbar(frame_table, command=table.yview)
 scr_panel.pack(side=tk.RIGHT, fill=tk.Y)
 table.configure(yscrollcommand=scr_panel.set)
 table.pack(expand=tk.YES, fill=tk.BOTH, anchor='w')
 
+### БЛОК ИЗМЕНЕНИЯ НАЗВАНИЯ ПЛЕЙЛИСТА
+### ----------------------------------------------------------------------------------------
 txt_title_spl_update = ttk.Label(frame_control, text="Обновление данных в таблице")
 txt_entry_id = ttk.Label(frame_control, text="Введите ID сеанса")
 txt_entry_new_spl_name = ttk.Label(frame_control, text="Введите новое название SPL")
@@ -49,12 +55,18 @@ entry_id_label=ttk.Entry(frame_control)
 entry_new_spl_name=ttk.Entry(frame_control)
 button_id = ttk.Button(frame_control, text='Обновить данные в БД', command=clear_data_in_db)
 
-
 txt_title_spl_update.grid(row="0", column="1",padx=3,pady=3)
 txt_entry_id.grid(row="1", column="0" ,padx=3,pady=3)
 txt_entry_new_spl_name.grid(row="2", column="0" ,padx=3,pady=3)
 entry_id_label.grid(row='1', column='1')
 entry_new_spl_name.grid(row='2', column='1')
 button_id.grid(row="3", column="1" ,padx=3,pady=3)
+### ----------------------------------------------------------------------------------------
+txt_title_button_clear_raw = ttk.Label(frame_control, text="Выберите строку для удаления")
+button_id = ttk.Button(frame_control, text='Удалить строку', command=delete_raw)
+
+txt_title_button_clear_raw.grid(row="4", column="1" ,padx=3,pady=3)
+button_id.grid(row="5", column="1" ,padx=3,pady=3)
+
 
 window.mainloop()
