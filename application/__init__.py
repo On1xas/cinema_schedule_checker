@@ -4,6 +4,24 @@ from tkinter import ttk
 import sqlite3
 import os
 
+def insert_data_tms_arena_sql(data_parsing_arena, cur, conn, date=str(datetime.date.today())):
+    # data_parsing имеет структуру show[0] - № зала, show[1] - Дата\время начала сеанса, show[2] - название SPL в TMS, show[3] - название CPL фильма в плейлисте
+    for show in data_parsing_arena:
+        if date in show[1]:
+            # переменая room_tms_name[1] - выберает список залов кт ARENA, по индексу ищет show[0](название зала) и подставляет его №.
+            cur.execute(
+                f"INSERT INTO ARENA_{room_tms_names[1].index(show[0]) + 1}_ROOM_TMS (TH_NAME, ROOM, SHOW_START, SPL_TITLE, CPL_TITLE) VALUES (?, ?, ?, ?, ?)",
+                ("Silver Screen в ТРЦ Arena city", show[0], show[1], show[2], show[3]))
+            conn.commit()
+def insert_data_tms_arena_sql(data_parsing_arena, cur, conn, date=str(datetime.date.today())):
+    # data_parsing имеет структуру show[0] - № зала, show[1] - Дата\время начала сеанса, show[2] - название SPL в TMS, show[3] - название CPL фильма в плейлисте
+    for show in data_parsing_arena:
+        if date in show[1]:
+            # переменая room_tms_name[1] - выберает список залов кт ARENA, по индексу ищет show[0](название зала) и подставляет его №.
+            cur.execute(
+                f"INSERT INTO ARENA_{room_tms_names[1].index(show[0]) + 1}_ROOM_TMS (TH_NAME, ROOM, SHOW_START, SPL_TITLE, CPL_TITLE) VALUES (?, ?, ?, ?, ?)",
+                ("Silver Screen в ТРЦ Arena city", show[0], show[1], show[2], show[3]))
+            conn.commit()
 
 def set_spl_name():
     spl = new_spl_name.get()
@@ -49,12 +67,3 @@ for show in cursor.fetchall():
     print(str(f"SPL: {show[2]}").ljust(50))
 print()
 window.mainloop()
-def insert_data_tms_arena_sql(data_parsing_arena, cur, conn, date=str(datetime.date.today())):
-    # data_parsing имеет структуру show[0] - № зала, show[1] - Дата\время начала сеанса, show[2] - название SPL в TMS, show[3] - название CPL фильма в плейлисте
-    for show in data_parsing_arena:
-        if date in show[1]:
-            # переменая room_tms_name[1] - выберает список залов кт ARENA, по индексу ищет show[0](название зала) и подставляет его №.
-            cur.execute(
-                f"INSERT INTO ARENA_{room_tms_names[1].index(show[0]) + 1}_ROOM_TMS (TH_NAME, ROOM, SHOW_START, SPL_TITLE, CPL_TITLE) VALUES (?, ?, ?, ?, ?)",
-                ("Silver Screen в ТРЦ Arena city", show[0], show[1], show[2], show[3]))
-            conn.commit()
