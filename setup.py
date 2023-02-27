@@ -124,7 +124,7 @@ with open('update-spl-script.bat', 'w') as file:
     directory=os.getcwd()
     file.write(f'{directory[0:2]}\n')
     file.write(f'cd {directory[3:]}\n')
-    file.write('python application/__init__.py\n')
+    file.write('python application/application.py\n')
     file.write('@pause\n')
 
 
