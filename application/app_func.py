@@ -4,6 +4,7 @@ import requests
 from lxml import etree
 import xml.etree.ElementTree as ET
 import colorama
+from config.config import parsing_url_api
 
 def update_pivot_raw(spl_name,id):
     with sqlite3.connect('data\database.db') as db:
@@ -34,47 +35,47 @@ def delete_select_raw(table):
     item=table.selection()
     table.delete(item)
 
-# def get_show_from_api(dates=datetime.datetime.now().date()):
-#
-#     data_parsing_api = []
-#     colorama.init()
-#     url = f'{parsing_url_api}{dates}'
-#     print(
-#             f"***Выполняю запрос сеансов на {colorama.Fore.RED} {dates} {colorama.Style.RESET_ALL} из программного обеспечения кинотеатра***")
-#     request = requests.get(url)
-#     if request.status_code == 200:
-#         print(f'***Ответ получен успешно***')
-#         xml = request.text
-#         parser = etree.XMLParser(recover=True)
-#         root = ET.fromstring(xml, parser=parser)
-#         for i in range(1, len(root[0])):
-#             date = datetime.datetime.strptime(root[0][i][2].text, '%Y-%m-%dT%H:%M:%S')
-#             data_parsing_api.append(("Данные отсутствуют",
-#                                     root[0][i][29].text,
-#                                     root[0][i][28].text,
-#                                     root[0][i][15].text,
-#                                     root[0][i][40].text,
-#                                     "Данные отсутствуют",
-#                                     "ИСТИНА",
-#                                     str(date)+".0",
-#                                     "Данные отсутствуют",
-#                                     "Данные отсутствуют",
-#                                     "Данные отсутствуют",
-#                                     "Данные отсутствуют",
-#                                     str(date.date()),
-#                                     "Данные отсутствуют",
-#                                     root[0][i][34].text,
-#                                     "Dolby Digital",
-#                                     "Русский язык",
-#                                     "Данные отсутствуют",
-#                                     root[0][i][20].text,
-#                                     root[0][i][24].text
-#                                     ))
-#         return list(sorted(data_parsing_api, key=lambda x: x[2]))
-#     else:
-#         print(
-#                 f"""***Проверьте полученные данные, возможно запрос был выполнен некорректно или не выполнен вовсе. Ошибка запроса {request.status_code}.***""")
-#         return None
+def get_show_from_api(dates=datetime.datetime.now().date()):
+
+    data_parsing_api = []
+    colorama.init()
+    url = f'{parsing_url_api}{dates}'
+    print(
+            f"***Выполняю запрос сеансов на {colorama.Fore.RED} {dates} {colorama.Style.RESET_ALL} из программного обеспечения кинотеатра***")
+    request = requests.get(url)
+    if request.status_code == 200:
+        print(f'***Ответ получен успешно***')
+        xml = request.text
+        parser = etree.XMLParser(recover=True)
+        root = ET.fromstring(xml, parser=parser)
+        for i in range(1, len(root[0])):
+            date = datetime.datetime.strptime(root[0][i][2].text, '%Y-%m-%dT%H:%M:%S')
+            data_parsing_api.append(("Данные отсутствуют",
+                                    root[0][i][29].text,
+                                    root[0][i][28].text,
+                                    root[0][i][15].text.strip(),
+                                    root[0][i][40].text,
+                                    "Данные отсутствуют",
+                                    "ИСТИНА",
+                                    str(date)+".0",
+                                    "Данные отсутствуют",
+                                    "Данные отсутствуют",
+                                    "Данные отсутствуют",
+                                    "Данные отсутствуют",
+                                    str(date.date()),
+                                    "Данные отсутствуют",
+                                    root[0][i][34].text,
+                                    "Dolby Digital",
+                                    "Русский язык",
+                                    "Данные отсутствуют",
+                                    root[0][i][20].text,
+                                    root[0][i][24].text
+                                    ))
+        return list(sorted(data_parsing_api, key=lambda x: x[2]))
+    else:
+        print(
+                f"""***Проверьте полученные данные, возможно запрос был выполнен некорректно или не выполнен вовсе. Ошибка запроса {request.status_code}.***""")
+        return None
 # if __name__ == '__main__':
     # for item in get_show_from_api():
     #     print(item)
