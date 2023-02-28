@@ -57,13 +57,11 @@ def get_show_from_api(dates=datetime.datetime.now().date()):
                                     root[0][i][40].text,
                                     "Данные отсутствуют",
                                     "ИСТИНА",
-                                    str(date)+".0",
+                                    datetime.datetime.strptime(root[0][i][2].text, '%Y-%m-%dT%H:%M:%S'),
                                     "Данные отсутствуют",
                                     "Данные отсутствуют",
                                     "Данные отсутствуют",
-                                    "Данные отсутствуют",
-                                    str(date.date()),
-                                    "Данные отсутствуют",
+                                    "Данные отсутствуют", f"{date.date()}", "Данные отсутствуют",
                                     root[0][i][34].text,
                                     "Dolby Digital",
                                     "Русский язык",
@@ -76,9 +74,9 @@ def get_show_from_api(dates=datetime.datetime.now().date()):
         print(
                 f"""***Проверьте полученные данные, возможно запрос был выполнен некорректно или не выполнен вовсе. Ошибка запроса {request.status_code}.***""")
         return None
-# if __name__ == '__main__':
+if __name__ == '__main__':
     # for item in get_show_from_api():
     #     print(item)
-    # date=datetime.datetime.strptime('2023-2-28T21:00:00', '%Y-%m-%dT%H:%M:%S')
-    # print(date.date())
-    # print(date.time())
+    date=datetime.datetime.strptime('2023-2-28T21:00:00', "%Y-%m-%dT%H:%M:%S")
+    print(f"{date.day}.{date.month}.{date.year}")
+    print(date.time())
