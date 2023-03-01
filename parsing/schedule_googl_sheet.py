@@ -15,6 +15,7 @@ def connect_gsdb():
     return worksheet
 def add_show_gsdb():
     worksheet= connect_gsdb()
+    worksheet.batch_clear(['A2:T500'])
     data=get_show_from_api("2023-03-01")
     quote=0
     with open('test.csv', 'w', newline='') as write_file:
@@ -59,6 +60,10 @@ if __name__ == '__main__':
     gs = gspread.service_account(filename='gs_credentials.json')  # подключаем файл с ключами и пр.
     sh = gs.open_by_key('17C7Ch7S9a3vHUIW3B8wGl7b_OYk9MuBRcssG6rbAGVQ')  # подключаем таблицу по ID
     worksheet = sh.sheet1  # получаем первый лист
-
-    worksheet.append_row(['Данные отсутствуют', 'mooon в ТРЦ Dana Mall', 'Зал 1 Premiere', 'Астерикс и Обеликс: Поднебесная', '32', 'Данные отсутствуют', 'ИСТИНА', '2023-03-01 21:00:00', 'Данные отсутствуют', 'Данные отсутствуют', 'Данные отсутствуют', 'Данные отсутствуют', '2023-03-01', 'Данные отсутствуют', '2D', 'Dolby Digital', 'Русский язык', 'Данные отсутствуют', 'зрителям, достигшим 12 лет', 'семейный, комедия, приключения'])
-    worksheet.format('H1:H100', {"numberFormat" : {"type": "DATE_TIME"}})
+    worksheet.batch_clear(['A2:T500'])
+    # worksheet.append_row(['Данные отсутствуют', 'mooon в ТРЦ Dana Mall', 'Зал 1 Premiere', 'Астерикс и Обеликс: Поднебесная', '32', 'Данные отсутствуют', 'ИСТИНА', '2023-03-01 21:00:00', 'Данные отсутствуют', 'Данные отсутствуют', 'Данные отсутствуют', 'Данные отсутствуют', '2023-03-01', 'Данные отсутствуют', '2D', 'Dolby Digital', 'Русский язык', 'Данные отсутствуют', 'зрителям, достигшим 12 лет', 'семейный, комедия, приключения'])
+    # worksheet.format('H2:H100', {"numberFormat" : {"type": "DATE_TIME"}})
+    data=get_show_from_api("2023-03-01")
+    for item in data:
+        print(item)
+    worksheet.update(f"A2:T{len(data)+1}", data)
