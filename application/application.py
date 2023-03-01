@@ -70,4 +70,5 @@ txt_title_button_clear_raw.grid(row="4", column="1" ,padx=3,pady=3)
 button_id.grid(row="5", column="1" ,padx=3,pady=3)
 
 
+
 window.mainloop()

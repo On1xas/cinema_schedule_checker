@@ -55,6 +55,46 @@ def clear_gsdb():
     print(f"CLEAR QUOTE = {quote}. TIMEOUT 65 SEC")
     time.sleep(65)
 
+def get_show_from_api(dates=datetime.datetime.now().date()):
+    data_parsing_api = []
+    colorama.init()
+    url = f'{parsing_url_api}{dates}'
+    print(
+        f"***Выполняю запрос сеансов на {colorama.Fore.RED} {dates} {colorama.Style.RESET_ALL} из программного обеспечения кинотеатра***")
+    request = requests.get(url)
+    if request.status_code == 200:
+        print(f'***Ответ получен успешно***')
+        xml = request.text
+        parser = etree.XMLParser(recover=True)
+        root = ET.fromstring(xml, parser=parser)
+        for i in range(1, len(root[0])):
+            date = datetime.datetime.strptime(root[0][i][2].text, '%Y-%m-%dT%H:%M:%S')
+            data_parsing_api.append(("Данные отсутствуют",
+                                     root[0][i][29].text,
+                                     root[0][i][28].text,
+                                     root[0][i][15].text.strip(),
+                                     root[0][i][40].text,
+                                     "Данные отсутствуют",
+                                     "ИСТИНА",
+                                     root[0][i][2].text,
+                                     "Данные отсутствуют",
+                                     "Данные отсутствуют",
+                                     "Данные отсутствуют",
+                                     "Данные отсутствуют",
+                                     str(date.date()),
+                                     "Данные отсутствуют",
+                                     root[0][i][34].text,
+                                     "Dolby Digital",
+                                     "Русский язык",
+                                     "Данные отсутствуют",
+                                     root[0][i][20].text,
+                                     root[0][i][24].text
+                                     ))
+        return list(sorted(data_parsing_api, key=lambda x: x[2]))
+    else:
+        print(
+            f"""***Проверьте полученные данные, возможно запрос был выполнен некорректно или не выполнен вовсе. Ошибка запроса {request.status_code}.***""")
+        return None
 
 if __name__ == '__main__':
     gs = gspread.service_account(filename='gs_credentials.json')  # подключаем файл с ключами и пр.
