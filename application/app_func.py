@@ -3,9 +3,6 @@ import sqlite3
 import xml.etree.ElementTree as ET
 import sys
 import os
-
-sys.path.append(f'{os.getcwd()}' + "\\config")
-from config import parsing_url_api
 import colorama
 import requests
 from lxml import etree
@@ -87,8 +84,13 @@ def get_show_from_api(dates=datetime.datetime.now().date()):
         return None
 
 
-if __name__ == '__main__':
-    get_show_from_api()
+if not __name__ == '__main__':
+    sys.path.append(f'{os.getcwd()}' + "\\config")
+    from config import parsing_url_api
+else:
+    from config.config import parsing_url_api
+    print('Загрузился')
+
     # date=datetime.datetime.strptime('2023-2-28T21:00:00', "%Y-%m-%dT%H:%M:%S")
     # t=date.timetuple()
     # print(t)

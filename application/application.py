@@ -2,9 +2,6 @@ import tkinter as tk
 from tkinter import ttk
 from app_func import update_pivot_raw,clear_table,load_table_info,delete_select_raw
 
-import sys
-
-sys.path.append('../')
 def clear_data_in_db():
     new_id=entry_id_label.get()
     new_spl=entry_new_spl_name.get()
