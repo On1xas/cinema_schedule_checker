@@ -1,4 +1,6 @@
+
 import sqlite3
+
 
 def update_pivot_raw(spl_name, id):
     with sqlite3.connect('data\database.db') as db:
@@ -31,13 +33,15 @@ def load_table_info(table):
 
 def delete_select_raw(table):
     item = table.selection()
+    p_id = table.item(item)
+    print(f"{p_id['values'][1]} УДАЛЕН ИЗ DB")
+    with sqlite3.connect('data\database.db') as db:
+        cursor = db.cursor()
+        sql='DELETE FROM PIVOT_SHOW_TABLE WHERE SHOW_NAME_API = ?'
+        cursor.execute(sql, (p_id['values'][1],))
+        db.commit()
     table.delete(item)
 
+ #   print(, p_id['values'][1]) # точка удаления строки из БД [38, ' Снежная королева: Разморозка ', 'SQ', '2023-02-22 14:47:05.334527']
 
-if __name__ == '__main__':
-    print('Загрузился')
 
-    # date=datetime.datetime.strptime('2023-2-28T21:00:00', "%Y-%m-%dT%H:%M:%S")
-    # t=date.timetuple()
-    # print(t)
-    # print(time.mktime(t))
