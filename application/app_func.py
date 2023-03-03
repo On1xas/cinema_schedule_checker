@@ -25,10 +25,10 @@ def clear_table(table):
     print('Таблица была очищена')
 
 
-def load_table_info(table):
+def load_table_info(self):
     data = get_pivot_info()
     for item in data:
-        table.insert("", 'end', values=item)
+        self.insert("", 'end', values=item)
 
 
 def delete_select_raw(table):
