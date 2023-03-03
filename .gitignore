@@ -10,3 +10,5 @@ data/database.db
 # Установочные файлы
 run-script.bat
 update-spl-script.bat
+/parsing/mooonshowdb.json
+/parsing/gs_credentials.json
