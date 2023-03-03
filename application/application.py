@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import ttk
-from app_func import update_pivot_raw, clear_table, load_table_info, delete_select_raw
+from tkcalendar import DateEntry, Calendar
+from app_func import update_pivot_raw,clear_table,load_table_info,delete_select_raw
 
 def clear_data_in_db():
     new_id=entry_id_label.get()
@@ -63,12 +64,33 @@ entry_id_label.grid(row='1', column='1')
 entry_new_spl_name.grid(row='2', column='1')
 button_id.grid(row="3", column="1" ,padx=3,pady=3)
 ### ----------------------------------------------------------------------------------------
-txt_title_button_clear_raw = ttk.Label(frame_control, text="Выберите строку для удаления")
+txt_title_button_clear_raw = ttk.Label(frame_control, text="Если прокат фильма закончился \n Выберите в таблице строку для удаления")
 button_id = ttk.Button(frame_control, text='Удалить строку', command=delete_raw)
 
 txt_title_button_clear_raw.grid(row="4", column="1" ,padx=3,pady=3)
 button_id.grid(row="5", column="1" ,padx=3,pady=3)
+### ----------------------------------------------------------------------------------------
+### Раздел ОБНОВЛЕНИЯ ГУГЛ ТАБЛИЦЫ ЧБОБО
+txt_title_update_gs = ttk.Label(frame_control, text="Обновленние ВЫГРУЗКИ в таблице расписания чбобо")
+txt_calendar_gs = ttk.Label(frame_control, text="\tВыберите дату \n \tдля выгрузки данных")
+calendar_update_gs = DateEntry(frame_control, date_pattern="YYYY-mm-dd")
+button_update_gs = ttk.Button(frame_control, text="Обновить таблицу")
 
+txt_title_update_gs.grid(row="6", column="1",padx=3,pady=3)
+txt_calendar_gs.grid(row="7", column="0" ,padx=3,pady=3, sticky='we')
+calendar_update_gs.grid(row="7", column="1" ,padx=3,pady=3)
+button_update_gs.grid(row="8", column="1" ,padx=3,pady=3)
+### ----------------------------------------------------------------------------------------
+### Раздел проверки расписания софта и ТМСа
+txt_title_check_schedule = ttk.Label(frame_control, text="Проверка Опубликованных сеансов и расписания в TMS RB")
+txt_calendar_check_schedule = ttk.Label(frame_control, text="Выберите дату для проверки расписания")
+calendar_check_schedule = DateEntry(frame_control, date_pattern="YYYY-mm-dd")
+button_check_schedule = ttk.Button(frame_control, text="Запустить проверку")
+
+txt_title_check_schedule.grid(row="9", column="1",padx=3,pady=3)
+txt_calendar_check_schedule.grid(row="10", column="0" ,padx=3,pady=3, sticky='we')
+calendar_check_schedule.grid(row="10", column="1" ,padx=3,pady=3)
+button_check_schedule.grid(row="11", column="1" ,padx=3,pady=3)
 
 
 window.mainloop()
