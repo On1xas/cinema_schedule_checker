@@ -1,4 +1,6 @@
 import os
+import time
 
-print(os.getenv('USERPROFILE'))
-print(os.path.abspath("main.py"))
+import subprocess
+
+subprocess.run('python main.py', shell=True)
