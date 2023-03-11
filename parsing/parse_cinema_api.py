@@ -8,7 +8,7 @@ import datetime
 import colorama
 
 
-def parse_schedule_api():
+def parse_schedule_api(dates):
     """
     Функция делает API запрос с атрибутом "showtimes",
      получает в ответ html\text от сервера в формате xml с данными сеансов кинотеатра
@@ -22,7 +22,6 @@ def parse_schedule_api():
     # input(
     # '''Введите номер кинотеара:\nArena - 2\nDana - 3\nPalazzo - 19\nTRINITI - 11\n
     # Если хотите сделать выборку по всем кинотеатрам, ничего не вводите\n''')
-    dates = ''
     # input(
     # '''Введите дату которую хотите проверить в формате 2023-01-01(YYYY-MM-DD).
     # Если хотите проверить сегодняшний день, ничего не вводите\n''')
