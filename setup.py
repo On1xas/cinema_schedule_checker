@@ -116,16 +116,7 @@ with open('run-script.bat', 'w') as file:
     directory=os.getcwd()
     file.write(f'{directory[0:2]}\n')
     file.write(f'cd {directory[3:]}\n')
-    file.write('python main.py\n')
+    file.write('python app.py\n')
     file.write('@pause\n')
-
-with open('update-spl-script.bat', 'w') as file:
-    file.write('@echo off\n')
-    directory=os.getcwd()
-    file.write(f'{directory[0:2]}\n')
-    file.write(f'cd {directory[3:]}\n')
-    file.write('python application/application.py\n')
-    file.write('@pause\n')
-
 
 print('setup is Done!')
