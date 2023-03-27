@@ -59,7 +59,7 @@ def delete_select_raw(table):
     table.delete(item)
 
  #   print(, p_id['values'][1]) # точка удаления строки из БД [38, ' Снежная королева: Разморозка ', 'SQ', '2023-02-22 14:47:05.334527']
-def check_show(theatre, rooms, cursor):
+def check_show(theatre, rooms, cursor,show_dict):
     colorama.init()
     for room in range(1, rooms + 1):
         show_api = []
@@ -119,10 +119,10 @@ def start_parse(date, show_set_api=set()):
     # Заполняем графу SPL_TITLE в сводной таблице.
     fill_pivot_spl_title(cur, connect_db)
     # Выполняем парсинг серверов TMS и вносим данные в БД по залам
-    insert_data_tms_palazzo_sql(parser_tms_palazzo(), cur, connect_db,date)
-    insert_data_tms_arena_sql(parser_tms_arena(), cur, connect_db,date)
-    insert_data_tms_dana_sql(parser_tms_dana(), cur, connect_db,date)
-    insert_data_tms_triniti_sql(parser_tms_triniti(), cur, connect_db,date)
+    insert_data_tms_palazzo_sql(parser_tms_palazzo(), cur, connect_db,str(date))
+    insert_data_tms_arena_sql(parser_tms_arena(), cur, connect_db,str(date))
+    insert_data_tms_dana_sql(parser_tms_dana(), cur, connect_db,str(date))
+    insert_data_tms_triniti_sql(parser_tms_triniti(), cur, connect_db,str(date))
     # # Подготавливаем словарь с названием фильма = название SPL
     show_dict = dict()
     tmpl = f'SELECT SHOW_NAME_API,SPL_TITLE_NAME FROM PIVOT_SHOW_TABLE'
@@ -130,9 +130,9 @@ def start_parse(date, show_set_api=set()):
     for show in cur.fetchall():
         show_dict[show[0]] = show[1]
     # Делаем сверку сеансов кинотеатров
-    check_show('PALAZZO', len(room_names[0]), cur)
-    check_show('ARENA', len(room_names[1]), cur)
-    check_show('DANA', len(room_names[2]), cur)
-    check_show('TRINITI', len(room_names[3]), cur)
+    check_show('PALAZZO', len(room_names[0]), cur,show_dict)
+    check_show('ARENA', len(room_names[1]), cur,show_dict)
+    check_show('DANA', len(room_names[2]), cur,show_dict)
+    check_show('TRINITI', len(room_names[3]), cur,show_dict)
 
     connect_db.close()
