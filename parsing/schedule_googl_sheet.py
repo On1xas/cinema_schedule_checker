@@ -35,37 +35,43 @@ def clear_gsdb():
 def get_show_from_api(dates=datetime.datetime.now().date()):
     data_parsing_api = []
     colorama.init()
-    url = f'{parsing_url_api}{dates}'
+    url = 'https://util.silverscreen.by:8448/meadiaStorage/util/schedule/list.xml'
     print(
         f"***Выполняю запрос сеансов на {colorama.Fore.RED} {dates} {colorama.Style.RESET_ALL} из программного обеспечения кинотеатра***")
-    request = requests.get(url)
+    request=requests.get(url)
     if request.status_code == 200:
         print(f'***Ответ получен успешно***')
-        xml = request.text
+
+        xml = request.content.decode(encoding='utf-8')
         parser = etree.XMLParser(recover=True)
-        root = ET.fromstring(xml, parser=parser)
-        for i in range(1, len(root[0])):
-            date = datetime.datetime.strptime(root[0][i][2].text, '%Y-%m-%dT%H:%M:%S')
-            data_parsing_api.append(("Данные отсутствуют",
-                                     root[0][i][29].text,
-                                     root[0][i][28].text,
-                                     root[0][i][15].text.strip(),
-                                     root[0][i][40].text,
+        tree = ET.fromstring(xml, parser=parser)
+
+        for elem in range(0, len(tree[1])):
+            date_time_str = tree[1][elem][1].text
+            date_time_obj = datetime.datetime.strptime(date_time_str, '%Y-%m-%dT%H:%M:%S')
+            if str(dates) in str(date_time_obj):
+                audio_format = "EN-RU" if "(RU SUB)" in tree[1][elem][3].text else "RU-RU"
+
+                data_parsing_api.append(("Данные отсутствуют",
+                                     tree[1][elem][14].text,
+                                     tree[1][elem][13].text,
+                                     tree[1][elem][3].text.strip(),
+                                     tree[1][elem][22].text,
                                      "Данные отсутствуют",
                                      "ИСТИНА",
-                                     root[0][i][2].text,
+                                     tree[1][elem][1].text,
                                      "Данные отсутствуют",
                                      "Данные отсутствуют",
                                      "Данные отсутствуют",
                                      "Данные отсутствуют",
-                                     str(date.date()),
+                                     str(date_time_obj.date()),
                                      "Данные отсутствуют",
-                                     root[0][i][34].text,
+                                     tree[1][elem][16].text,
                                      "Dolby Digital",
                                      "Русский язык",
                                      "Данные отсутствуют",
-                                     root[0][i][20].text,
-                                     root[0][i][24].text
+                                     tree[1][elem][8].text,
+                                     tree[1][elem][10].text
                                      ))
         return list(sorted(data_parsing_api, key=lambda x: x[2]))
     else:
