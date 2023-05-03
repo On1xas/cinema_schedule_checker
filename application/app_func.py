@@ -35,7 +35,6 @@ def get_pivot_info():
 
 def clear_table(table):
     for item in table.get_children():
-        print(item)
         table.delete(item)
     print('Таблица была очищена')
 
@@ -43,7 +42,6 @@ def clear_table(table):
 def load_table_info(self):
     data = get_pivot_info()
     for item in data:
-        print(item)
         self.insert("", 'end', values=item)
 
 

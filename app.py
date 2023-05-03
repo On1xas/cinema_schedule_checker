@@ -116,7 +116,7 @@ class Frame_control(tk.Frame, User):
                                              text="Проверка Опубликованных сеансов и расписания в TMS RB")
         txt_calendar_check_schedule = ttk.Label(self, text="Выберите дату для проверки расписания")
         self.calendar_check_schedule = DateEntry(self, date_pattern="YYYY-mm-dd")
-        button_check_schedule = ttk.Button(self, text="Запустить проверку", command=lambda : start_parse(self.calendar_check_schedule.get_date()))
+        button_check_schedule = ttk.Button(self, text="Запустить проверку", command=lambda : start_parse(str(self.calendar_check_schedule.get_date())))
 
         txt_title_check_schedule.grid(row="9", column="1", padx=3, pady=3)
         txt_calendar_check_schedule.grid(row="10", column="0", padx=3, pady=3, sticky='we')
